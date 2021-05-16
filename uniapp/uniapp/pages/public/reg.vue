@@ -10,7 +10,7 @@
 			<view class="input-content">
 				<view class="input-item">
 					<text class="tit">手机号码</text>
-					<input type="number" v-model="mobile" placeholder="请输入手机号码" />
+					<input type="number" v-model="phone" placeholder="请输入手机号码" />
 				</view>
 				<view class="input-item">
 					<text class="tit">密码</text>
@@ -37,7 +37,7 @@ import Api from '@/common/api';
 export default {
 	data() {
 		return {
-			mobile: '',
+			phone: '',
 			password: '',
 			confimpassword: '',
 			logining: false
@@ -62,10 +62,10 @@ export default {
 		async reg() {
 			let phoneReg = /^1[1-9][0-9]\d{8}$/;
 			try {
-				if (this.mobile == '') {
+				if (this.phone == '') {
 					throw '请填写手机号';
 				}
-				if (!phoneReg.test(this.mobile)) {
+				if (!phoneReg.test(this.phone)) {
 					throw '手机号格式有误';
 				}
 				if (this.password == '') {
@@ -76,7 +76,7 @@ export default {
 				return;
 			}
 			this.logining = true;
-			let params = { mobile: this.mobile, password: this.password, newPassword: this.confimpassword };
+			let params = { phone: this.phone, password: this.password, confimpassword: this.confimpassword };
 			let data = await Api.apiCall('post', Api.index.simpleReg, params);
 			this.logining = false;
 

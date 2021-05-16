@@ -192,8 +192,8 @@ export default {
 					'client_id': 'app',
 					'client_secret': 'app',
 					'storeid': 1,
-					//	'Content-Type': 'application/x-www-form-urlencoded',
-					// 'content-type': 'application/json',
+						// 'Content-Type': 'application/x-www-form-urlencoded',
+					'Content-Type': 'application/json',
 					'Authorization': Authorization || ''
 				},
 			});
@@ -230,8 +230,8 @@ export default {
 					'client_id': 'app',
 					'client_secret': 'app',
 					'storeid': 1,
-					'Content-Type': 'application/x-www-form-urlencoded',
-					// 'content-type': 'application/json',
+					// 'Content-Type': 'application/x-www-form-urlencoded',
+					'Content-Type': 'application/json',
 					'Authorization': Authorization || ''
 				},
 			});
@@ -289,8 +289,8 @@ export default {
 			data: data,
 			method: method,
 			header: {
-				'Content-Type': 'application/x-www-form-urlencoded',
-				// 'content-type': 'application/json',
+				// 'Content-Type': 'application/x-www-form-urlencoded',
+				'Content-Type': 'application/json',
 				'Authorization': Authorization || ''
 			},
 		});
