@@ -13,8 +13,8 @@
 ![](http://processon.com/chart_image/5c7f2ad6e4b02b2ce48d6835.png?_=1554621571250)
 
 &nbsp;
-# http://localhost:8081/api-uaa/oauth/user/reg/token 
-# http://localhost:8081/api-uaa/oauth/user/ums/token
+# 微信开发者工具 下载地址
+# https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html
 
 ## 3. 功能介绍
 
