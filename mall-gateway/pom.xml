@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>zuul-gateway</module>
+        <module>api-gateway</module>
     </modules>
 
 </project>
