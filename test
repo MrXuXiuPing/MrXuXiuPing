@@ -20,3 +20,4 @@ CartMarkingVo vo = new CartMarkingVo();
 启动内容中心mall-bussiness/cms-center
 启动前端工程： 解压跟目录的mallcloud-admin-vue.zip,为后台管理的vue前端，
 需要安装nodejs环境，然后进入此目录，npm install ,成功后执行 npm run dev
+`sms_group_member`
