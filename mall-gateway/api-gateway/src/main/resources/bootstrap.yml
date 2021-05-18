@@ -12,6 +12,13 @@ spring:
   application:
     name: api-gateway
   cloud:
+    sentinel:
+      transport:
+        ## VM
+        ##-Djava.net.preferIPv4Stack=true -Dcsp.sentinel.dashboard.server=localhost:8080 -Dcsp.sentinel.api.port=8666 -Dproject.name=gateway -Dcsp.sentinel.app.type=1
+        dashboard: localhost:8080
+        port: 8080
+        heartbeat-interval-ms: 500
     nacos:
       config:
         server-addr: ${mall.nacos.server-addr}

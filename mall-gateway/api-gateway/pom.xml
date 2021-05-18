@@ -31,6 +31,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
         </dependency>
+        <!--发邮件用的-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
@@ -62,18 +67,49 @@
         <!--            <groupId>com.mall</groupId>-->
         <!--            <artifactId>mall-redis-spring-boot-starter</artifactId>-->
         <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>com.mall</groupId>-->
-        <!--            <artifactId>mall-sentinel-spring-boot-starter</artifactId>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.cloud</groupId>-->
-        <!--            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>com.alibaba.csp</groupId>-->
-        <!--            <artifactId>sentinel-datasource-nacos</artifactId>-->
-        <!--        </dependency>-->
+                <!--<dependency>-->
+                    <!--<groupId>com.mall</groupId>-->
+                    <!--<artifactId>mall-sentinel-spring-boot-starter</artifactId>-->
+                <!--</dependency>-->
+                <!--<dependency>-->
+                    <!--<groupId>org.springframework.cloud</groupId>-->
+                    <!--<artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>-->
+                <!--</dependency>-->
+                <!--    sentinel 和 alibaba结合 相关的依赖    -->
+                <!--<dependency>-->
+                    <!--<groupId>com.alibaba.cloud</groupId>-->
+                    <!--<artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>-->
+                    <!--<version>2.1.0.RELEASE</version>-->
+                <!--</dependency>-->
+                <!--    sentinel限流规则持久化nacos用到的相关的依赖    -->
+                <dependency>
+                    <groupId>com.alibaba.csp</groupId>
+                    <artifactId>sentinel-datasource-nacos</artifactId>
+                </dependency>
+            <!--    gateway网关相关的依赖    -->
+            <dependency>
+                <groupId>com.alibaba.csp</groupId>
+                <artifactId>sentinel-spring-cloud-gateway-adapter</artifactId>
+                <version>1.7.1</version>
+            </dependency>
+                <!--    sentinel热点参数限流相关的依赖    -->
+                <dependency>
+                    <groupId>com.alibaba.csp</groupId>
+                    <artifactId>sentinel-parameter-flow-control</artifactId>
+                </dependency>
+        <!--<dependency>-->
+            <!--<groupId>de.codecentric</groupId>-->
+            <!--<artifactId>spring-boot-admin-starter-server</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-actuator</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>de.codecentric</groupId>-->
+            <!--<artifactId>spring-boot-admin-starter-client</artifactId>-->
+            <!--<version>2.1.0</version>-->
+        <!--</dependency>-->
         <!-- 替换undertow容器 -->
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.boot</groupId>-->
