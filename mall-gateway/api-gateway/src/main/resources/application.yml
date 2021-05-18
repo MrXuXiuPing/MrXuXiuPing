@@ -1,7 +1,10 @@
-#spring:
-#  application:
-#    name:
 #---
+feign:
+  httpclient:
+    enabled: false
+#logging:
+#  level:
+#    org.springframework.cloud.gateway: trace
 spring:
   redis:
     host: localhost
