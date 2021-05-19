@@ -16,7 +16,7 @@
 // * @date 2018/10/28
 // */
 //@Slf4j
-//@Service("permissionService")
+////@Service("permissionService")
 //public class PermissionServiceImpl extends DefaultPermissionServiceImpl {
 //    @Resource
 //    private MenuService menuService;

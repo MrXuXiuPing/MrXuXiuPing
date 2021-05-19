@@ -2,21 +2,42 @@ package com.mallplus.gateway.filter;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.mallplus.gateway.utils.IpUtils;
+import com.mallplus.gateway.utils.PropertiesUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * IP黑名单过滤器
+ */
 @Component
+@Slf4j
 public class IPCheckFilter implements GlobalFilter, Ordered {
+
+    // 模拟⿊名单（实际可以去数据库或者redis中查询）
+    private static List<String> blackList = new ArrayList<>();
+
+    static {
+        for (int i = 0; i <20 ; i++) {
+//            blackList.add("127.0.0."+i); // 模拟本机地址
+            blackList.add("192.0.0."+i); // 模拟本机地址
+        }
+       log.info("黑名单集合：{}",blackList);
+    }
     @Override
     public int getOrder() {
         return 0;
@@ -24,9 +45,9 @@ public class IPCheckFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        HttpHeaders headers = exchange.getRequest().getHeaders();
-        // 此处写得非常绝对, 只作演示用, 实际中需要采取配置的方式
-        if (getIp(headers).equals("127.0.0.1")) {
+        ServerHttpRequest request= exchange.getRequest();
+        boolean flag = blackList.contains(getIpInfo(request));
+        if (flag) {
             ServerHttpResponse response = exchange.getResponse();
             JSONObject data = new JSONObject();
             data.put("code:", "401");
@@ -36,14 +57,14 @@ public class IPCheckFilter implements GlobalFilter, Ordered {
             response.setStatusCode(HttpStatus.UNAUTHORIZED);
             response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
             return response.writeWith(Mono.just(buffer));
-        }
+        }// 合法请求，放⾏，执⾏后续的过滤器
         return chain.filter(exchange);
     }
 
     // 这里从请求头中获取用户的实际IP,根据Nginx转发的请求头获取
-    private String getIp(HttpHeaders headers) {
-//        IpAddressUtil.getIpAddr(headers);
-        String hostName = headers.getHost().getHostName();
-        return "127.0.0.1";
+    private String getIpInfo(ServerHttpRequest request) {
+        String ipAddress = IpUtils.getIpAddress(request);
+        log.info("来源访问ip：{}",ipAddress);
+        return ipAddress;
     }
 }
