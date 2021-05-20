@@ -1,7 +1,5 @@
 package com.mallplus.provider.config;
 
-import com.mallplus.provider.listener.OrderListener;
-import com.mallplus.provider.listener.PayListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.*;
@@ -105,33 +103,6 @@ public class OrderRabbitmqConfig {
         return BindingBuilder.bind(orderQueue()).to(orderTopicExchange()).with(env.getProperty("order.mq.routing.key"));
     }
 
-    /**
-     * 注入订单对列消费监听器
-     */
-    @Autowired
-    private OrderListener orderListener;
-
-    /**
-     * 声明订单队列监听器配置容器
-     * @return
-     */
-    @Bean("orderListenerContainer")
-    public SimpleMessageListenerContainer orderListenerContainer(){
-        //创建监听器容器工厂
-        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
-        //将配置信息和链接信息赋给容器工厂
-        factoryConfigurer.configure(factory,connectionFactory);
-        //容器工厂创建监听器容器
-//        SimpleMessageListenerContainer container = factory.createListenerContainer();
-        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-        //指定监听器监听的队列
-        container.setQueues(orderQueue());
-        //指定监听器
-        container.setMessageListener(orderListener);
-        return container;
-    }
-
-
     //--------------------------------------------支付队列-------------------------------------------------
 
     /**
@@ -145,7 +116,7 @@ public class OrderRabbitmqConfig {
      */
     @Bean
     public Queue payDeadLetterQueue(){
-        Map args = new HashMap();
+        Map<String,Object> args = new HashMap();
         //声明死信交换机
         args.put("x-dead-letter-exchange",env.getProperty("pay.dead-letter.mq.exchange.name"));
         //声明死信routingkey
@@ -199,26 +170,6 @@ public class OrderRabbitmqConfig {
     @Bean
     public Binding payDeadLetterBinding(){
         return BindingBuilder.bind(payQueue()).to(payDeadLetterExchange()).with(env.getProperty("pay.dead-letter.mq.routing.key"));
-    }
-
-    /**
-     * 注入支付监听器
-     */
-    @Autowired
-    private PayListener payListener;
-
-    /**
-     * 支付队列监听器容器
-     * @return
-     */
-    @Bean
-    public SimpleMessageListenerContainer payMessageListenerContainer(){
-        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
-        factoryConfigurer.configure(factory,connectionFactory);
-        SimpleMessageListenerContainer listenerContainer = new SimpleMessageListenerContainer();
-        listenerContainer.setMessageListener(payListener);
-        listenerContainer.setQueues(payQueue());
-        return listenerContainer;
     }
 
 }

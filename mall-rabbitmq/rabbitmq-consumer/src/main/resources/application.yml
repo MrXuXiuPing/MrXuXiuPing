@@ -6,9 +6,27 @@ spring:
     name: mall-rabbitmq-consumer
   #配置rabbitMq 服务器
   rabbitmq:
+    listener:
+      simple:
+        concurrency: 10 #消费者数量
+        max-concurrency: 20 #最大消费者数量
+        prefetch: 5 #消费者每次从队列获取的消息数量。写多了，如果长时间得不到消费，数据就一直得不到处理
+        acknowledge-mode: manual #消费接收确认机制-手动确认
     host: 127.0.0.1
     port: 5672
     username: guest
     password: guest
+    publisher-returns: true
     #虚拟host 可以不设置,使用server默认host
-#    virtual-host: JCcccHost
+    virtual-host: /
+    #虚拟host 可以不设置,使用server默认host
+mq:
+  env: local
+order: #订单处理队列
+  mq:
+    queue: #队列名称
+      name: ${mq.env}:order:mq:queue
+pay: #支付处理队列
+  mq:
+    queue: #队列名称
+      name: ${mq.env}:pay:mq:queue

@@ -10,28 +10,40 @@ order: #订单处理队列
       name: ${mq.env}:order:mq:queue
     routing: #routingkey
       key: ${mq.env}:order:mq:routing:key
+    ttl: 5000
+pay: #支付处理队列
+  dead-letter:
+    mq:
+      exchange: #死信交换机（DLX)
+        name: ${mq.env}:pay:dead-letter:mq:exchange
+      queue: #死信队列名称
+        name: ${mq.env}:pay:dead-letter:mq:queue
+      routing: #死信routingkey(DLK)
+        key: ${mq.env}:pay:dead-letter:mq:routing:key
+  mq:
+    exchange: #交换机名称
+      name: ${mq.env}:pay:mq:exchange
+    queue: #队列名称
+      name: ${mq.env}:pay:mq:queue
+    routing: #routingkey
+      key: ${mq.env}:pay:mq:routing:key
+    ttl: 5000  #支付超时时间（毫秒）（TTL）,测试原因，这里模拟5秒，如果是生产环境，这里可以是15分钟等
+
 spring:
   #给项目来个名字
   application:
     name: mall-rabbitmq-provider
   #配置rabbitMq 服务器
   rabbitmq:
-    listener:
-      simple:
-        concurrency: 5 #消费者数量
-        max-concurrency: 10 #最大消费者数量
-        prefetch: 1 #消费者每次从队列获取的消息数量。写多了，如果长时间得不到消费，数据就一直得不到处理
-        acknowledge-mode: manual #消费接收确认机制-手动确认
     host: 127.0.0.1
     port: 5672
     username: guest
     password: guest
     #虚拟host 可以不设置,使用server默认host
-#    virtual-host: JCcccHost
+    virtual-host: /
       #消息确认配置项
-
       #确认消息已发送到交换机(Exchange)
-#    publisher-confirms: true
+    publisher-confirms: true
 #      #确认消息已发送到队列(Queue)
-#    publisher-returns: true
+    publisher-returns: true
 #

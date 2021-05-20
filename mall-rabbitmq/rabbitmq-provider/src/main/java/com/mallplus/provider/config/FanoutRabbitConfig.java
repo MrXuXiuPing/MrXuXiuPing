@@ -1,4 +1,4 @@
-package com.mallplus.provider.config;
-
-public class FanoutRabbitConfig {
-}
+//package com.mallplus.provider.config;
+//
+//public class FanoutRabbitConfig {
+//}
