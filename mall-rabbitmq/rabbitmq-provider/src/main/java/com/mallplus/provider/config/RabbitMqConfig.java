@@ -41,13 +41,13 @@ public class RabbitMqConfig {
      */
     @Autowired
     private SimpleRabbitListenerContainerFactoryConfigurer factoryConfigurer;
-
     /**
      * 声明rabbittemplate
+     *
      * @return
      */
     @Bean
-    public RabbitTemplate rabbitTemplate(){
+    public RabbitTemplate rabbitTemplate() {
         //消息发送成功确认，对应application.properties中的spring.rabbitmq.publisher-confirms=true
         connectionFactory.setPublisherConfirms(true);
         //消息发送失败确认，对应application.properties中的spring.rabbitmq.publisher-returns=true
@@ -60,8 +60,13 @@ public class RabbitMqConfig {
         rabbitTemplate.setConfirmCallback(new RabbitTemplate.ConfirmCallback() {
             @Override
             public void confirm(CorrelationData correlationData, boolean ack, String cause) {
-                logger.info("--------------------------消息发送成功--------------------------");
-                logger.info("相关数据:({}),确认情况:({}),原因:({})",correlationData,ack,cause);
+                if (ack) {
+                    logger.info("--------------------------消息发送成功--------------------------");
+                    logger.info("相关数据:({}),确认情况:({}),原因:({})", correlationData, ack, cause);
+                }else{
+                    logger.info("--------------------------消息发送失败--------------------------");
+                    logger.info("相关数据:({}),确认情况:({}),原因:({})", correlationData, ack, cause);
+                }
             }
         });
         //消息从exchange发送到queue失败回调  需设置：spring.rabbitmq.publisher-returns=true
@@ -69,7 +74,7 @@ public class RabbitMqConfig {
             @Override
             public void returnedMessage(Message message, int replyCode, String replyText, String exchange, String routingKey) {
                 logger.info("--------------------------消息丢失--------------------------");
-                logger.info("交换机：({}),路由键：({}),回应码：({}),回应信息：({}),消息：{}",exchange,routingKey,replyCode,replyText,message);
+                logger.info("交换机：({}),路由键：({}),回应码：({}),回应信息：({}),消息：{}", exchange, routingKey, replyCode, replyText, message);
             }
         });
         return rabbitTemplate;
@@ -79,29 +84,32 @@ public class RabbitMqConfig {
 
     /**
      * 声明订单队列的交换机
+     *
      * @return
      */
     @Bean("orderTopicExchange")
-    public TopicExchange orderTopicExchange(){
+    public TopicExchange orderTopicExchange() {
         //设置为持久化 不自动删除
-        return new TopicExchange(env.getProperty("order.mq.exchange.name"),true,false);
+        return new TopicExchange(env.getProperty("order.mq.exchange.name"), true, false);
     }
 
     /**
      * 声明订单队列
+     *
      * @return
      */
     @Bean("orderQueue")
-    public Queue orderQueue(){
-        return new Queue(env.getProperty("order.mq.queue.name"),true);
+    public Queue orderQueue() {
+        return new Queue(env.getProperty("order.mq.queue.name"), true);
     }
 
     /**
      * 将队列绑定到交换机
+     *
      * @return
      */
     @Bean
-    public Binding simpleBinding(){
+    public Binding simpleBinding() {
         return BindingBuilder.bind(orderQueue()).to(orderTopicExchange()).with(env.getProperty("order.mq.routing.key"));
     }
 
@@ -114,63 +122,69 @@ public class RabbitMqConfig {
 
     /**
      * 死信队列，十五分钟超时
+     *
      * @return
      */
     @Bean
-    public Queue payDeadLetterQueue(){
-        Map<String,Object> args = new HashMap();
+    public Queue payDeadLetterQueue() {
+        Map<String, Object> args = new HashMap();
         //声明死信交换机
-        args.put("x-dead-letter-exchange",env.getProperty("pay.dead-letter.mq.exchange.name"));
+        args.put("x-dead-letter-exchange", env.getProperty("pay.dead-letter.mq.exchange.name"));
         //声明死信routingkey
-        args.put("x-dead-letter-routing-key",env.getProperty("pay.dead-letter.mq.routing.key"));
+        args.put("x-dead-letter-routing-key", env.getProperty("pay.dead-letter.mq.routing.key"));
         //声明死信队列中的消息过期时间
-        args.put("x-message-ttl",env.getProperty("pay.mq.ttl",int.class));
+        args.put("x-message-ttl", env.getProperty("pay.mq.ttl", int.class));
         //创建死信队列
-        return new Queue(env.getProperty("pay.dead-letter.mq.queue.name"),true,false,false,args);
+        return new Queue(env.getProperty("pay.dead-letter.mq.queue.name"), true, false, false, args);
     }
 
     /**
      * 支付队列交换机（主交换机）
+     *
      * @return
      */
     @Bean
-    public TopicExchange payTopicExchange(){
-        return new TopicExchange(env.getProperty("pay.mq.exchange.name"),true,false);
+    public TopicExchange payTopicExchange() {
+        return new TopicExchange(env.getProperty("pay.mq.exchange.name"), true, false);
     }
 
     /**
      * 将主交换机绑定到死信队列
+     *
      * @return
      */
     @Bean
-    public Binding payBinding(){
+    public Binding payBinding() {
         return BindingBuilder.bind(payDeadLetterQueue()).to(payTopicExchange()).with(env.getProperty("pay.mq.routing.key"));
     }
 
     /**
      * 支付队列（主队列）
+     *
      * @return
      */
     @Bean
-    public Queue payQueue(){
-        return new Queue(env.getProperty("pay.mq.queue.name"),true);
+    public Queue payQueue() {
+        return new Queue(env.getProperty("pay.mq.queue.name"), true);
     }
 
     /**
      * 死信交换机
+     *
      * @return
      */
     @Bean
-    public TopicExchange payDeadLetterExchange(){
-        return new TopicExchange(env.getProperty("pay.dead-letter.mq.exchange.name"),true,false);
+    public TopicExchange payDeadLetterExchange() {
+        return new TopicExchange(env.getProperty("pay.dead-letter.mq.exchange.name"), true, false);
     }
 
     /**
      * 将主队列绑定到死信交换机
+     *
      * @return
      */
     @Bean
-    public Binding payDeadLetterBinding(){
+    public Binding payDeadLetterBinding() {
         return BindingBuilder.bind(payQueue()).to(payDeadLetterExchange()).with(env.getProperty("pay.dead-letter.mq.routing.key"));
     }
 
