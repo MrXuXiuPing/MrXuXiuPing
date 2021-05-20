@@ -18,7 +18,7 @@ spring:
     password: guest
     publisher-returns: true
     #虚拟host 可以不设置,使用server默认host
-    virtual-host: /
+#    virtual-host: /
     #虚拟host 可以不设置,使用server默认host
 mq:
   env: local

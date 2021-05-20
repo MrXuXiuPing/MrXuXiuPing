@@ -30,41 +30,41 @@ public class SendMessageController {
         return "ok";
     }
 
-    @GetMapping("/sendTopicMessage1")
+    @GetMapping("/sendTopicMessageOrder")
     public String sendTopicMessage1() {
         String messageId = String.valueOf(UUID.randomUUID());
-        String messageData = "message: M A N ";
+        String messageData = "message: order ";
         String createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         Map<String, Object> manMap = new HashMap<>();
         manMap.put("messageId", messageId);
         manMap.put("messageData", messageData);
         manMap.put("createTime", createTime);
-        rabbitTemplate.convertAndSend("topicExchange", "topic.man", manMap);
+        rabbitTemplate.convertAndSend("local:order:mq:exchange", "local:order:mq:routing:key", manMap);
         return "ok";
     }
 
-    @GetMapping("/sendTopicMessage2")
+    @GetMapping("/sendTopicMessagePay")
     public String sendTopicMessage2() {
         String messageId = String.valueOf(UUID.randomUUID());
-        String messageData = "message: woman is all ";
+        String messageData = "message: pay  ";
         String createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         Map<String, Object> womanMap = new HashMap<>();
         womanMap.put("messageId", messageId);
         womanMap.put("messageData", messageData);
         womanMap.put("createTime", createTime);
-        rabbitTemplate.convertAndSend("topicExchange", "topic.woman", womanMap);
+        rabbitTemplate.convertAndSend("local:pay:mq:exchange", "local:pay:mq:routing:key", womanMap);
         return "ok";
     }
-    @GetMapping("/TestMessageAck")
-    public String TestMessageAck() {
-        String messageId = String.valueOf(UUID.randomUUID());
-        String messageData = "message: non-existent-exchange test message ";
-        String createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        Map<String, Object> map = new HashMap<>();
-        map.put("messageId", messageId);
-        map.put("messageData", messageData);
-        map.put("createTime", createTime);
-        rabbitTemplate.convertAndSend("non-existent-exchange", "TestDirectRouting", map);
-        return "ok";
-    }
+//    @GetMapping("/TestMessageAck")
+//    public String TestMessageAck() {
+//        String messageId = String.valueOf(UUID.randomUUID());
+//        String messageData = "message: non-existent-exchange test message ";
+//        String createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("messageId", messageId);
+//        map.put("messageData", messageData);
+//        map.put("createTime", createTime);
+//        rabbitTemplate.convertAndSend("non-existent-exchange", "TestDirectRouting", map);
+//        return "ok";
+//    }
 }

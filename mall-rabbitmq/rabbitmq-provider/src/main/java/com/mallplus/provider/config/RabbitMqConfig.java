@@ -22,9 +22,9 @@ import java.util.Map;
  * 秒杀rabbitmq配置
  */
 @Configuration
-public class OrderRabbitmqConfig {
+public class RabbitMqConfig {
 
-    private static final Logger logger = LoggerFactory.getLogger(OrderRabbitmqConfig.class);
+    private static final Logger logger = LoggerFactory.getLogger(RabbitMqConfig.class);
 
 
     @Autowired
@@ -60,14 +60,16 @@ public class OrderRabbitmqConfig {
         rabbitTemplate.setConfirmCallback(new RabbitTemplate.ConfirmCallback() {
             @Override
             public void confirm(CorrelationData correlationData, boolean ack, String cause) {
-                logger.info("消息发送成功:correlationData({}),ack({}),cause({})",correlationData,ack,cause);
+                logger.info("--------------------------消息发送成功--------------------------");
+                logger.info("相关数据:({}),确认情况:({}),原因:({})",correlationData,ack,cause);
             }
         });
         //消息从exchange发送到queue失败回调  需设置：spring.rabbitmq.publisher-returns=true
         rabbitTemplate.setReturnCallback(new RabbitTemplate.ReturnCallback() {
             @Override
             public void returnedMessage(Message message, int replyCode, String replyText, String exchange, String routingKey) {
-                logger.info("消息丢失:exchange({}),route({}),replyCode({}),replyText({}),message:{}",exchange,routingKey,replyCode,replyText,message);
+                logger.info("--------------------------消息丢失--------------------------");
+                logger.info("交换机：({}),路由键：({}),回应码：({}),回应信息：({}),消息：{}",exchange,routingKey,replyCode,replyText,message);
             }
         });
         return rabbitTemplate;

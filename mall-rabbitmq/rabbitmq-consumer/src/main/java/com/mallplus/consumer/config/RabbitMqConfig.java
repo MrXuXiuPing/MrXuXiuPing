@@ -22,9 +22,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-public class RabbitConfig {
+public class RabbitMqConfig {
 
-    private static final Logger logger = LoggerFactory.getLogger(RabbitConfig.class);
+    private static final Logger logger = LoggerFactory.getLogger(RabbitMqConfig.class);
 
 
     @Autowired
