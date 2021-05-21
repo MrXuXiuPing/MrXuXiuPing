@@ -11,6 +11,13 @@
 
     <groupId>com.mall</groupId>
     <artifactId>rabbitmq-provider</artifactId>
+    <dependencies>
+        <!-- quartz -->
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+        </dependency>
+    </dependencies>
 
 
 </project>

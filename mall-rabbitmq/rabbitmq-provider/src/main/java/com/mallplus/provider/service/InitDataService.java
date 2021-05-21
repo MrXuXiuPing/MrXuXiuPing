@@ -3,6 +3,7 @@ package com.mallplus.provider.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.CountDownLatch;
@@ -17,6 +18,7 @@ public class InitDataService {
     @Autowired
     private CommonMqService commonMqService;
     //TODO 采用 CountDownLatch 模拟产生高并发时的多线程请求
+    @Async
     public void generateMultiThread() {
         log.info("开始初始化线程数----> ");
         try {
@@ -24,7 +26,6 @@ public class InitDataService {
             for (int i=0;i<ThreadNum;i++){
                 new Thread(new RunThread(countDownLatch)).start();
             }
-
             //TODO：启动多个线程
             countDownLatch.countDown();
         }catch (Exception e){

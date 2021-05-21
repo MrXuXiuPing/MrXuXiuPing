@@ -56,6 +56,7 @@ public class RabbitMqConfig {
     @Bean("orderListenerContainer")
     public SimpleRabbitListenerContainerFactory orderListenerContainer(){
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+        factoryConfigurer.configure(factory,connectionFactory);
         factory.setMessageConverter(new Jackson2JsonMessageConverter());
         factory.setConnectionFactory(connectionFactory);
         //TODO：并发配置
@@ -71,6 +72,7 @@ public class RabbitMqConfig {
     @Bean(name = "payMessageListenerContainer")
     public SimpleRabbitListenerContainerFactory payMessageListenerContainer(){
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+        factoryConfigurer.configure(factory,connectionFactory);
         factory.setMessageConverter(new Jackson2JsonMessageConverter());
         factory.setConnectionFactory(connectionFactory);
         //TODO：并发配置
