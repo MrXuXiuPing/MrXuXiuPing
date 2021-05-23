@@ -4,7 +4,9 @@ import App from './App'
 
 import Json from './Json' //测试用数据
 import * as otherApi from './config/api.js'
-
+// main.js
+import uView from "uview-ui";
+Vue.use(uView);
 
 import * as Common from './config/common.js'
 import * as Db from './config/db.js'

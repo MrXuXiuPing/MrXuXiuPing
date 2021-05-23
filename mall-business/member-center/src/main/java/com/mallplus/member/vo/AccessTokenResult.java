@@ -1,4 +1,4 @@
-package com.zscat.mallplus.ums.vo;
+package com.mallplus.member.vo;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;

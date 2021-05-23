@@ -44,10 +44,17 @@ import { mapMutations, mapState } from 'vuex';
 import Api from '@/common/api';
 import store from '@/store/index';
 export default {
+	// data() {
+	// 	return {
+	// 		username: '15141313371',
+	// 		password: 'xuxiuping',
+	// 		logining: false
+	// 	};
+	// },
 	data() {
 		return {
-			username: '15141313371',
-			password: 'xuxiuping',
+			username: '',
+			password: '',
 			logining: false
 		};
 	},

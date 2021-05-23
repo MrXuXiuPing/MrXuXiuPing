@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<view class="list-cell b-b m-t" @click="navTo('个人资料')" hover-class="cell-hover" :hover-stay-time="50">
+		<view class="list-cell b-b m-t"  @click="navTo('/pages/user/userDetails')" hover-class="cell-hover" :hover-stay-time="50">
 			<text class="cell-tit">个人资料</text>
 			<text class="cell-more yticon icon-you"></text>
 		</view>
@@ -46,7 +46,10 @@ export default {
 		...mapMutations(['logout']),
 
 		navTo(url) {
-			this.$api.msg(`跳转到${url}`);
+			uni.navigateTo({
+				url: url
+			});
+			// this.$api.msg(`跳转到${url}`);
 		},
 		//退出登录
 		toLogout() {
