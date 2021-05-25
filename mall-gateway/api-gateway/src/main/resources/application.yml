@@ -5,6 +5,8 @@
 #添加sentinel依赖后 暴露/actuator/sentinel端点
 management:
   endpoints:
+    health:
+      show-details: always
     web:
       exposure:
         include: '*'

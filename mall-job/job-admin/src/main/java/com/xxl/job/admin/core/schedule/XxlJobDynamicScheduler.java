@@ -185,7 +185,7 @@ public final class XxlJobDynamicScheduler {
 				jobInfo.setJobStatus(triggerState.name());
 			}
 
-            //JobKey jobKey = new JobKey(jobInfo.getJobName(), String.valueOf(jobInfo.getJobGroup()));
+//            JobKey jobKey = new JobKey(jobInfo.getJobName(), String.valueOf(jobInfo.getJobGroup()));
             //JobDetail jobDetail = scheduler.getJobDetail(jobKey);
             //String jobClass = jobDetail.getJobClass().getName();
 			

@@ -1,8 +1,10 @@
 spring:
   data:
     elasticsearch:
-      cluster-name: ${mall.elasticsearch.cluster-name}
-      cluster-nodes: ${mall.elasticsearch.cluster-nodes}
+      cluster-name: mall-elasticsearch
+#      cluster-name: ${mall.elasticsearch.cluster-name}
+      cluster-nodes: localhost:9300
+#      cluster-nodes: ${mall.elasticsearch.cluster-nodes}
       repositories:
         enabled: true
 
