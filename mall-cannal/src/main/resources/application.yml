@@ -1,12 +1,12 @@
 canal:
   # instance 实例所在ip
-  host: 172.31.251.39
+  host: 127.0.0.1
   # tcp通信端口
   port: 11111
   # 账号  canal-admin application.yml 设置的
   username: canal
   # 密码
-  password: Canal@123456
+  password: canal
   #实例名称
   instance: example
 

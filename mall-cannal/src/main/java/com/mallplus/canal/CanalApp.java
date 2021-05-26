@@ -1,5 +1,6 @@
 package com.mallplus.canal;
 
+import com.mallplus.canal.client.CanalClient;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.CommandLineRunner;
@@ -15,20 +16,20 @@ import javax.annotation.Resource;
  */
 @EnableDiscoveryClient
 @SpringBootApplication
-public class CanalApp/* implements CommandLineRunner , ApplicationRunner*/ {
+public class CanalApp implements CommandLineRunner  {
 
-//    @Resource
-//    private CanalClient canalClient;
+    @Resource
+    private CanalClient canalClient;
 
     public static void main(String[] args) {
         SpringApplication.run(CanalApp.class,args);
     }
 
-   /* @Override
+    @Override
     public void run(String... args) throws Exception {
-//        canalClient.run();
+        canalClient.run();
     }
-
+/*
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
