@@ -25,7 +25,8 @@
         <sharding-sphere.version>3.1.0</sharding-sphere.version>
         <security-oauth2.version>2.3.5.RELEASE</security-oauth2.version>
         <security-jwt.version>1.0.9.RELEASE</security-jwt.version>
-        <redisson.version>3.9.1</redisson.version>
+        <redisson.version>3.13.6</redisson.version>
+<!--        <redisson.version>3.9.1</redisson.version>-->
         <kaptcha.version>0.0.9</kaptcha.version>
         <hutool.version>4.3.1</hutool.version>
         <mybatis-plus-boot-starter.version>3.0.6</mybatis-plus-boot-starter.version>
@@ -180,22 +181,22 @@
                 <artifactId>redisson</artifactId>
                 <version>${redisson.version}</version>
             </dependency>
-            <!-- redisson-springboot -->
-            <dependency>
-                <groupId>org.redisson</groupId>
-                <artifactId>redisson-spring-boot-starter</artifactId>
-                <version>3.11.4</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-web</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-webflux</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
+<!--            &lt;!&ndash; redisson-springboot &ndash;&gt;-->
+<!--            <dependency>-->
+<!--                <groupId>org.redisson</groupId>-->
+<!--                <artifactId>redisson-spring-boot-starter</artifactId>-->
+<!--                <version>3.11.4</version>-->
+<!--                <exclusions>-->
+<!--                    <exclusion>-->
+<!--                        <groupId>org.springframework.boot</groupId>-->
+<!--                        <artifactId>spring-boot-starter-web</artifactId>-->
+<!--                    </exclusion>-->
+<!--                    <exclusion>-->
+<!--                        <groupId>org.springframework.boot</groupId>-->
+<!--                        <artifactId>spring-boot-starter-webflux</artifactId>-->
+<!--                    </exclusion>-->
+<!--                </exclusions>-->
+<!--            </dependency>-->
             <!-- swagger -->
             <dependency>
                 <groupId>io.springfox</groupId>
@@ -406,5 +407,7 @@
         <module>mall-config</module>
         <!-- demo -->
         <module>mall-demo</module>
+        <module>mall-rabbitmq</module>
+        <module>mall-cannal</module>
     </modules>
 </project>

@@ -6,7 +6,7 @@
           <div class="total-frame">
             <svg-icon icon-class="order" class="total-icon">
             </svg-icon>
-            <div class="total-title"><a href="https://gitee.com/zscat-platform/mall">下载地址</a></div>
+            <div class="total-title">订单总数</div>
             <div class="total-value">{{orderData.nowOrderCount}}</div>
           </div>
         </el-col>

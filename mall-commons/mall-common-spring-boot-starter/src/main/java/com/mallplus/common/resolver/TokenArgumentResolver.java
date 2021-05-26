@@ -58,25 +58,27 @@ public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
         LoginUser loginUser = methodParameter.getParameterAnnotation(LoginUser.class);
         boolean isFull = loginUser.isFull();
         HttpServletRequest request = nativeWebRequest.getNativeRequest(HttpServletRequest.class);
+        log.info("request:{}",request);
         String username = request.getHeader(SecurityConstants.USER_HEADER);
         String roles = request.getHeader(SecurityConstants.ROLE_HEADER);
-        if (StrUtil.isBlank(username)) {
-            log.warn("resolveArgument error username is empty");
-            return null;
-        }
+//        if (StrUtil.isBlank(username)) {
+//            log.warn("resolveArgument error username is empty");
+//            return null;
+//        }
         SysUser user;
         if (isFull) {
-            user = userService.selectByUsername(username);
+            user = userService.selectByUsername("admin");
+//            user = userService.selectByUsername("username");
         } else {
             user = new SysUser();
             user.setUsername(username);
         }
         List<SysRole> sysRoleList = new ArrayList<>();
-        Arrays.stream(roles.split(",")).forEach(role -> {
-            SysRole sysRole = new SysRole();
-            sysRole.setCode(role);
-            sysRoleList.add(sysRole);
-        });
+//        Arrays.stream(roles.split(",")).forEach(role -> {
+//            SysRole sysRole = new SysRole();
+//            sysRole.setCode(role);
+//            sysRoleList.add(sysRole);
+//        });
         user.setRoles(sysRoleList);
         return user;
     }

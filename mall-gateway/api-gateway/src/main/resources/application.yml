@@ -99,7 +99,8 @@ spring:
         - id: sms-center
           uri: lb://sms-center
           predicates:
-            - Path=/api-sms/**
+#            - Path=/api-sms/**
+            - Path=/api-marking/**
           filters:
             - StripPrefix=1
             # -内容中心
@@ -108,6 +109,13 @@ spring:
           predicates:
             - Path=/api-cms/**
           filters:
+            - StripPrefix=1
+            # -内容中心
+        - id: code-generator
+          uri: lb://code-generator
+          predicates:
+            - Path=/api-generator/**
+           filters:
             - StripPrefix=1
     # sentinel动态配置规则
     sentinel:

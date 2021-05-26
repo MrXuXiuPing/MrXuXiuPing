@@ -28,7 +28,11 @@ public class SysGeneratorServiceImpl extends ServiceImpl implements SysGenerator
 
     @Override
     public PageResult<Map<String, Object>> queryList(Map<String, Object> map) {
-        Page<Map<String, Object>> page = new Page<>(MapUtils.getInteger(map, "page"), MapUtils.getInteger(map, "limit"));
+        log.info("===================:{}",map);
+//        String pageNum = map.get("pageNum").toString();
+//        String pageSize = map.get("pageSize").toString();
+//        return new CommonResult().success(appUserService.page(new Page<SysUser>(pageNum, pageSize), new QueryWrapper<>(entity).orderByDesc("create_time")));
+        Page<Map<String, Object>> page = new Page<>(MapUtils.getInteger(map, "pageNum"), MapUtils.getInteger(map, "pageSize"));
 
         List<Map<String, Object>> list = sysGeneratorMapper.queryList(page, map);
         return PageResult.<Map<String, Object>>builder().data(list).code(0).count(page.getTotal()).build();

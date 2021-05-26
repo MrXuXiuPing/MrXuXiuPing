@@ -29,6 +29,8 @@ public class SysGeneratorController {
     @ResponseBody
     @GetMapping("/list")
     public PageResult getTableList(@RequestParam Map<String, Object> params) {
+        System.out.println("===================:{}"+params);
+
         return sysGeneratorService.queryList(params);
     }
 

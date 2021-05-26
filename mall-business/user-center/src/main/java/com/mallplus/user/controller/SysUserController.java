@@ -33,6 +33,7 @@ import java.util.*;
 @Slf4j
 @RestController
 @Api(tags = "用户模块api")
+//@RequestMapping("/sys/sysUser/")
 public class SysUserController {
     private static final String ADMIN_CHANGE_MSG = "超级管理员不给予修改";
 
@@ -150,7 +151,7 @@ public class SysUserController {
 
     @SysLog(MODULE = "sys", REMARK = "根据条件查询所有用户列表")
     @ApiOperation("根据条件查询所有用户列表")
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/sys/sysUser/list")
     public Object getUserByPage(SysUser entity,
                                 @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                 @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize
