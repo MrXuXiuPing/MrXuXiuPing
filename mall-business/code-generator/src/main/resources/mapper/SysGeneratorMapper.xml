@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mallplus.generator.mapper.SysGeneratorMapper">
-	<select id="queryList" resultType="map">
+	<select id="queryList" resultType="com.mallplus.generator.model.TableEntity">
 		select table_name tableName, engine engine, table_comment tableComment, create_time createTime from
 		information_schema.tables
 		where table_schema = (select database())
-		<if test="p.tableName != null and p.tableName.trim() != ''">
-			and table_name like concat('%', #{p.tableName}, '%')
-		</if>
+		<!--<if test="tableName != null and tableName.trim() != ''">
+			and table_name like concat('%', #{tableName}, '%')
+		</if>-->
 		order by create_time desc
 	</select>
 

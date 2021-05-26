@@ -1,9 +1,15 @@
 package com.mallplus.generator.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mallplus.common.model.SysUser;
 import com.mallplus.db.mapper.SuperMapper;
+import com.mallplus.generator.model.TableEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,8 +20,8 @@ import java.util.Map;
  */
 @Component
 @Mapper
-public interface SysGeneratorMapper extends SuperMapper {
-    List<Map<String, Object>> queryList(Page<Map<String, Object>> page, @Param("p") Map<String, Object> map);
+public interface SysGeneratorMapper extends BaseMapper<TableEntity> {
+    IPage<TableEntity> queryList(IPage<TableEntity> page, @Param("tableName") Wrapper<TableEntity> tableName);
 
     int queryTotal(Map<String, Object> map);
 

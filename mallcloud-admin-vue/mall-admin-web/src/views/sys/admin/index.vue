@@ -15,7 +15,7 @@
         <div style="margin-top: 15px">
           <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
             <el-form-item label="输入搜索：">
-              <el-input style="width: 203px" v-model="listQuery.keyword" placeholder="用户名称/关键字"></el-input>
+              <el-input style="width: 203px" @keyup.enter.native=""  v-model="listQuery.keyword" placeholder="用户名称/关键字"></el-input>
             </el-form-item>
           </el-form>
         </div>

@@ -162,7 +162,7 @@
         this.listLoading = true;
         fetchList(this.listQuery).then(response => {
           this.listLoading = false;
-          this.list = response.data;
+          this.list = response.data.records;
           this.total = response.data.total;
           this.totalPage = response.data.pages;
           this.pageSize = response.data.size;

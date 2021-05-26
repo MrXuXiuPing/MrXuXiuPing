@@ -1,13 +1,17 @@
 package com.mallplus.generator.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mallplus.generator.mapper.SysGeneratorMapper;
+import com.mallplus.generator.model.TableEntity;
 import com.mallplus.generator.service.SysGeneratorService;
 import com.mallplus.generator.utils.GenUtils;
 import com.mallplus.common.model.PageResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.MapUtils;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,20 +26,14 @@ import java.util.zip.ZipOutputStream;
  */
 @Slf4j
 @Service
-public class SysGeneratorServiceImpl extends ServiceImpl implements SysGeneratorService {
+public class SysGeneratorServiceImpl extends ServiceImpl<SysGeneratorMapper,TableEntity> implements SysGeneratorService {
     @Autowired
     private SysGeneratorMapper sysGeneratorMapper;
 
     @Override
-    public PageResult<Map<String, Object>> queryList(Map<String, Object> map) {
-        log.info("===================:{}",map);
-//        String pageNum = map.get("pageNum").toString();
-//        String pageSize = map.get("pageSize").toString();
-//        return new CommonResult().success(appUserService.page(new Page<SysUser>(pageNum, pageSize), new QueryWrapper<>(entity).orderByDesc("create_time")));
-        Page<Map<String, Object>> page = new Page<>(MapUtils.getInteger(map, "pageNum"), MapUtils.getInteger(map, "pageSize"));
-
-        List<Map<String, Object>> list = sysGeneratorMapper.queryList(page, map);
-        return PageResult.<Map<String, Object>>builder().data(list).code(0).count(page.getTotal()).build();
+    public IPage<TableEntity> queryList(IPage<TableEntity> page, Wrapper<TableEntity> var2) {
+//        Page<Map<String, Object>> page = new Page<>(, MapUtils.getInteger(map, "pageSize"));
+        return sysGeneratorMapper.queryList(page, var2);
     }
 
     @Override

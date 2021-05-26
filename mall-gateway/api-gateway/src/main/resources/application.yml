@@ -115,7 +115,7 @@ spring:
           uri: lb://code-generator
           predicates:
             - Path=/api-generator/**
-           filters:
+          filters:
             - StripPrefix=1
     # sentinel动态配置规则
     sentinel:

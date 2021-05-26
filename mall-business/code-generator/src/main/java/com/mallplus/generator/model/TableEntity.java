@@ -10,10 +10,13 @@ public class TableEntity {
      * 表的名称
      */
     private String tableName;
+
     /**
      * 表的备注
      */
     private String comments;
+    private String tableComment;
+    private String engine;
     /**
      * 表的主键
      */
@@ -30,6 +33,22 @@ public class TableEntity {
      * 类名(第一个字母小写)，如：sys_user => sysUser
      */
     private String classname;
+
+    public String getTableComment() {
+        return tableComment;
+    }
+
+    public void setTableComment(String tableComment) {
+        this.tableComment = tableComment;
+    }
+
+    public String getEngine() {
+        return engine;
+    }
+
+    public void setEngine(String engine) {
+        this.engine = engine;
+    }
 
     public String getTableName() {
         return tableName;
