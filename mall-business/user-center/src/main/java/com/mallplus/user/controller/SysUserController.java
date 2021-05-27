@@ -33,7 +33,7 @@ import java.util.*;
 @Slf4j
 @RestController
 @Api(tags = "用户模块api")
-//@RequestMapping("/sys/sysUser/")
+@RequestMapping("/sys/sysUser")
 public class SysUserController {
     private static final String ADMIN_CHANGE_MSG = "超级管理员不给予修改";
 
@@ -151,7 +151,7 @@ public class SysUserController {
 
     @SysLog(MODULE = "sys", REMARK = "根据条件查询所有用户列表")
     @ApiOperation("根据条件查询所有用户列表")
-    @GetMapping(value = "/sys/sysUser/list")
+    @GetMapping(value = "/list")
     public Object getUserByPage(SysUser entity,
                                 @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                 @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize
@@ -181,7 +181,7 @@ public class SysUserController {
 
     @SysLog(MODULE = "sys", REMARK = "更新用户")
     @ApiOperation("更新用户")
-    @PostMapping(value = "/sys/sysUser/update/{id}")
+    @PostMapping(value = "/update/{id}")
     public Object updateUser(@RequestBody SysUser entity) {
         try {
             if (appUserService.updates(entity.getId(),entity)) {
@@ -196,7 +196,7 @@ public class SysUserController {
 
     @SysLog(MODULE = "sys", REMARK = "删除用户")
     @ApiOperation("删除用户")
-    @GetMapping(value = "/sys/sysUser/delete/{id}")
+    @GetMapping(value = "/delete/{id}")
     public Object deleteUser(@ApiParam("用户id") @PathVariable Long id) {
         try {
             if (ValidatorUtils.empty(id)) {
@@ -214,7 +214,7 @@ public class SysUserController {
 
     @SysLog(MODULE = "sys", REMARK = "给用户分配角色")
     @ApiOperation("查询用户明细")
-    @GetMapping(value = "/sys/sysUser/{id}")
+    @GetMapping(value = "/{id}")
     public Object getUserById(@ApiParam("用户id") @PathVariable Long id) {
         try {
             if (ValidatorUtils.empty(id)) {
@@ -231,7 +231,7 @@ public class SysUserController {
 
     @SysLog(MODULE = "sys", REMARK = "获取指定用户的角色")
     @ApiOperation("获取指定用户的角色")
-    @RequestMapping(value = "/sys/sysUser/userRoleCheck", method = RequestMethod.GET)
+    @RequestMapping(value = "/userRoleCheck", method = RequestMethod.GET)
     @ResponseBody
     public Object userRoleCheck(@RequestParam("adminId") Long adminId) {
         List<SysRole> roleList = appUserService.findRolesByUserId(adminId);

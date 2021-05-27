@@ -22,7 +22,7 @@ public interface UserService {
      * @param username
      * @return
      */
-    @GetMapping(value = "/users/name/{username}")
+    @GetMapping(value = "/sys/sysUser/users/name/{username}")
     SysUser selectByUsername(@PathVariable("username") String username);
 
     /**
@@ -31,7 +31,7 @@ public interface UserService {
      * @param username
      * @return
      */
-    @GetMapping(value = "/users-anon/login", params = "username")
+    @GetMapping(value = "/sys/sysUser/users-anon/login", params = "username")
     LoginAppUser findByUsername(@RequestParam("username") String username);
 
     /**
@@ -39,7 +39,7 @@ public interface UserService {
      *
      * @param mobile 手机号
      */
-    @GetMapping(value = "/users-anon/mobile", params = "mobile")
+    @GetMapping(value = "/sys/sysUser/users-anon/mobile", params = "mobile")
     LoginAppUser findByMobile(@RequestParam("mobile") String mobile);
 
     /**
@@ -47,10 +47,10 @@ public interface UserService {
      *
      * @param openId openId
      */
-    @GetMapping(value = "/users-anon/openId", params = "openId")
+    @GetMapping(value = "/sys/sysUser/users-anon/openId", params = "openId")
     LoginAppUser findByOpenId(@RequestParam("openId") String openId);
 
-    @GetMapping(value = "/users-anon/id", params = "id")
+    @GetMapping(value = "/sys/sysUser/users-anon/id", params = "id")
     LoginAppUser findById(Long id);
 
     @PostMapping(value = "/sys/SysAdminLog/create")

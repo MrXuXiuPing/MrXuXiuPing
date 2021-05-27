@@ -84,6 +84,7 @@ public class OAuth2Controller {
     @PostMapping(SecurityConstants.PASSWORD_LOGIN_PRO_URL)
     public void getUserTokenInfo(@RequestBody SysUser param,
             HttpServletRequest request, HttpServletResponse response) throws IOException {
+        log.info("=======================param====================:{}",param);
         if (param.getUsername() == null || "".equals(param.getUsername())) {
             throw new UnapprovedClientAuthenticationException("用户名为空");
         }
@@ -168,7 +169,9 @@ public class OAuth2Controller {
             ClientDetails clientDetails = getClient(clientId, clientSecret, null);
             TokenRequest tokenRequest = new TokenRequest(MapUtils.EMPTY_MAP, clientId, clientDetails.getScope(), "customer");
             OAuth2Request oAuth2Request = tokenRequest.createOAuth2Request(clientDetails);
+            log.info("==========authentication====前面diamante========:{}",token);
             Authentication authentication = authenticationManager.authenticate(token);
+            log.info("==========authentication======后面代码======:{}",authentication);
             SecurityContextHolder.getContext().setAuthentication(authentication);
             OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request, authentication);
             OAuth2AccessToken oAuth2AccessToken =  authorizationServerTokenServices.createAccessToken(oAuth2Authentication);

@@ -17,4 +17,10 @@ public class DefaultPasswordConfig {
 	public PasswordEncoder passwordEncoder()	{
 		return new BCryptPasswordEncoder();
 	}
+
+//	public static void main(String[] args) {
+//		BCryptPasswordEncoder bb = new BCryptPasswordEncoder();
+//		String encode = bb.encode("123456");
+//		System.out.println(encode);
+//	}
 }

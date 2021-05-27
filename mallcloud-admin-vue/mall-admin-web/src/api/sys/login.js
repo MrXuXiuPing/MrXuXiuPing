@@ -26,7 +26,7 @@ export function reg(username, password,code,confimpassword) {
 
 export function getInfo() {
   return request({
-    url: '/api-user/info',
+    url: '/api-user/sys/sysUser/info',
     method: 'get',
   })
 }
