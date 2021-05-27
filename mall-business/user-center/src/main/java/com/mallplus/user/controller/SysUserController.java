@@ -181,7 +181,7 @@ public class SysUserController {
 
     @SysLog(MODULE = "sys", REMARK = "更新用户")
     @ApiOperation("更新用户")
-    @PostMapping(value = "/update/{id}")
+    @PostMapping(value = "/sys/sysUser/update/{id}")
     public Object updateUser(@RequestBody SysUser entity) {
         try {
             if (appUserService.updates(entity.getId(),entity)) {
@@ -196,7 +196,7 @@ public class SysUserController {
 
     @SysLog(MODULE = "sys", REMARK = "删除用户")
     @ApiOperation("删除用户")
-    @GetMapping(value = "/delete/{id}")
+    @GetMapping(value = "/sys/sysUser/delete/{id}")
     public Object deleteUser(@ApiParam("用户id") @PathVariable Long id) {
         try {
             if (ValidatorUtils.empty(id)) {
@@ -214,7 +214,7 @@ public class SysUserController {
 
     @SysLog(MODULE = "sys", REMARK = "给用户分配角色")
     @ApiOperation("查询用户明细")
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/sys/sysUser/{id}")
     public Object getUserById(@ApiParam("用户id") @PathVariable Long id) {
         try {
             if (ValidatorUtils.empty(id)) {
@@ -231,7 +231,7 @@ public class SysUserController {
 
     @SysLog(MODULE = "sys", REMARK = "获取指定用户的角色")
     @ApiOperation("获取指定用户的角色")
-    @RequestMapping(value = "/userRoleCheck", method = RequestMethod.GET)
+    @RequestMapping(value = "/sys/sysUser/userRoleCheck", method = RequestMethod.GET)
     @ResponseBody
     public Object userRoleCheck(@RequestParam("adminId") Long adminId) {
         List<SysRole> roleList = appUserService.findRolesByUserId(adminId);

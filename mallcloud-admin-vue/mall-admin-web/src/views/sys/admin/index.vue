@@ -31,30 +31,32 @@
       </el-button>
     </el-card>
     <div class="table-container">
-      <el-table ref="adminTable"
+      <el-table  ref="adminTable"
                 :data="list"
                 style="width: 100%"
                 @selection-change="handleSelectionChange"
                 v-loading="listLoading"
                 border>
         <el-table-column type="selection" width="60" align="center"></el-table-column>
-        <el-table-column label="编号" width="180" align="center">
+        <el-table-column label="编号" width="200" align="center">
           <template slot-scope="scope">{{scope.row.id}}</template>
         </el-table-column>
-        <el-table-column label="注册时间" width="180" align="center">
-          <template slot-scope="scope">{{scope.row.createTime | formatTime}}</template>
-        </el-table-column>
-        <el-table-column label="用户昵称" align="center">
+		<el-table-column label="用户账号" width="200" align="center">
+		  <template slot-scope="scope">{{scope.row.username}}</template>
+		</el-table-column>
+        <el-table-column label="用户昵称" width="200" align="center">
           <template slot-scope="scope">{{scope.row.nickName}}</template>
         </el-table-column>
-        <el-table-column label="用户账号" width="180" align="center">
-          <template slot-scope="scope">{{scope.row.username}}</template>
-        </el-table-column>
-        <el-table-column label="邮件" width="180" align="center">
+        <el-table-column label="邮件" width="200" align="center">
           <template slot-scope="scope">{{scope.row.email}}</template>
         </el-table-column>
-
-        <el-table-column label="是否禁用" width="100" align="center">
+		<el-table-column label="注册时间" align="center">
+          <template slot-scope="scope">
+			<i class="el-icon-time"></i>
+		  {{scope.row.createTime | formatTime}}
+		  </template>
+        </el-table-column>
+        <el-table-column label="是否禁用" width="200" align="center">
           <template slot-scope="scope">
             <el-switch
               @change="handleShowStatusChange(scope.$index, scope.row)"
@@ -107,7 +109,7 @@
         @current-change="handleCurrentChange"
         layout="total, sizes,prev, pager, next,jumper"
         :page-size="listQuery.pageSize"
-        :page-sizes="[5,10,15]"
+        :page-sizes="[5,10,15,50,100]"
         :current-page.sync="listQuery.pageNum"
         :total="total">
       </el-pagination>

@@ -22,6 +22,7 @@ export const constantRouterMap = [
   {path: '/login', component: () => import('@/views/login/index'), hidden: true},
     {path: '/reg', component: () => import('@/views/login/reg'), hidden: true},
 {path: '/404', component: () => import('@/views/404'), hidden: true},
+
 {
   path: '',
     component: Layout,
@@ -33,6 +34,7 @@ export const constantRouterMap = [
   meta: {title: '首页', icon: 'home'}
 }]
 },
+
 {
   path: '/pms',
     component: Layout,
@@ -429,7 +431,7 @@ export const constantRouterMap = [
 {
   path: '/sys',
     component: Layout,
-  redirect: '/sys/user',
+  redirect: '/sys/admin',
   name: 'sys',
   meta: {title: '系统管理', icon: 'home'},
   children: [
@@ -439,6 +441,7 @@ export const constantRouterMap = [
       component: () => import('@/views/sys/admin/index'),
     meta: {title: '用户列表', icon: 'product-list'}
 },
+
   {
     path: 'gen',
       name: 'gen',
@@ -522,13 +525,19 @@ export const constantRouterMap = [
       name: 'webLog',
     component: () => import('@/views/sys/webLog/index'),
     meta: {title: '前台日志列表', icon: 'product-list'}
-  },{
+  },
+  {
+  path: 'userCenter',
+    name: 'userCenter',
+    component: () => import('@/views/sys/admin/userCenter'),
+    meta: {title: '用户中心', icon: 'product-list'}
+},
+{
   path: 'adminLog',
     name: 'adminLog',
     component: () => import('@/views/sys/adminLog/index'),
     meta: {title: '后台日志列表', icon: 'product-list'}
-},
-
+}
 ]
 },
 {
@@ -732,7 +741,7 @@ export const constantRouterMap = [
 ]
 
 export default new Router({
-  // mode: 'history', //后端支持可开
+  mode: 'history', //后端支持可开
   scrollBehavior: () => ({y: 0}),
   routes: constantRouterMap
 })

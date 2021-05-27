@@ -31,9 +31,8 @@ public class SysGeneratorServiceImpl extends ServiceImpl<SysGeneratorMapper,Tabl
     private SysGeneratorMapper sysGeneratorMapper;
 
     @Override
-    public IPage<TableEntity> queryList(IPage<TableEntity> page, Wrapper<TableEntity> var2) {
-//        Page<Map<String, Object>> page = new Page<>(, MapUtils.getInteger(map, "pageSize"));
-        return sysGeneratorMapper.queryList(page, var2);
+    public IPage<TableEntity> queryList(IPage<TableEntity> page, TableEntity wrapper,String tableName) {
+        return sysGeneratorMapper.queryList(page, wrapper,tableName);
     }
 
     @Override

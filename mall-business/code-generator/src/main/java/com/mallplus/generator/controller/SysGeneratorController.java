@@ -38,11 +38,18 @@ public class SysGeneratorController {
     @GetMapping("/list")
     public Object getTableList(TableEntity tableEntity,
                                @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-                               @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+                               @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
+                               @RequestParam(value = "tableName", defaultValue = "") String tableName) {
         try {
+//            log.info("tableEntity:{}",tableEntity);
+//            QueryWrapper<TableEntity> tableEntityQueryWrapper = new QueryWrapper<>();
+//            new QueryWrapper<>(tableEntity)
+//                    .eq("table_schema","(select database())")
+//                    .like("table_name",tableEntity.getTableName())
+//                    .orderByDesc("create_time");
+
             return new CommonResult().success(sysGeneratorService.queryList(
-                    new Page<TableEntity>(pageNum, pageSize),
-                    new QueryWrapper<>(tableEntity).orderByDesc("create_time")));
+                    new Page<TableEntity>(pageNum, pageSize),tableEntity, tableName));
 
         } catch (Exception e) {
             log.error("根据条件查询所有用户列表：%s", e.getMessage(), e);

@@ -6,9 +6,13 @@
 		select table_name tableName, engine engine, table_comment tableComment, create_time createTime from
 		information_schema.tables
 		where table_schema = (select database())
-		<!--<if test="tableName != null and tableName.trim() != ''">
+<!--		${ew.customSqlSegment}-->
+<!--		<if test="ew.emptyOfWhere == false">-->
+<!--			and ${ew.sqlSegment}-->
+<!--		</if>-->
+		<if test="tableName != null and tableName.trim() != ''">
 			and table_name like concat('%', #{tableName}, '%')
-		</if>-->
+		</if>
 		order by create_time desc
 	</select>
 

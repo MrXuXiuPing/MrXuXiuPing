@@ -10,11 +10,16 @@
       <el-dropdown-menu class="user-dropdown" slot="dropdown">
         <router-link class="inlineBlock" to="/">
           <el-dropdown-item>
-            首页
+            首页信息
           </el-dropdown-item>
         </router-link>
+		<router-link class="inlineBlock" to="/sys/userCenter">
+		  <el-dropdown-item>
+		    个人中心
+		  </el-dropdown-item>
+		</router-link>
         <el-dropdown-item divided>
-          <span @click="logout" style="display:block;">退出</span>
+          <span @click="open" style="display:block;">退出登录</span>
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
@@ -41,6 +46,15 @@ export default {
     toggleSideBar() {
       this.$store.dispatch('ToggleSideBar')
     },
+	open() {
+	  this.$confirm('确定注销并退出系统吗？', '提示', {
+	    confirmButtonText: '确定',
+	    cancelButtonText: '取消',
+	    type: 'warning'
+	  }).then(() => {
+	    this.logout()
+	  })
+	},
     logout() {
       this.$store.dispatch('LogOut').then(() => {
         location.reload() // 为了重新实例化vue-router对象 避免bug

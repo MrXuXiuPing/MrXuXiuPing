@@ -79,7 +79,11 @@
           pageSize: 100
         },
         loginRules: {
-          username: [{required: true, trigger: 'blur', message: '请输入用户名',}]
+          nickName: [{required: true, trigger: 'blur', message: '请输入用户昵称',}],
+		  username: [{required: true, trigger: 'blur', message: '请输入用户名',}],
+		  password: [{required: true, trigger: 'blur', message: '请输入密码',}],
+		  email: [{required: true, trigger: 'blur', message: '请输入邮箱',}],
+		  icon: [{required: true, trigger: 'blur', message: '请上传头像',}]
         }
 
         }

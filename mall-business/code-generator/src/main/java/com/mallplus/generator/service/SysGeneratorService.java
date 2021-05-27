@@ -18,7 +18,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface SysGeneratorService extends IService<TableEntity> {
-     IPage<TableEntity> queryList(IPage<TableEntity> map, Wrapper<TableEntity> var2);
+//     IPage<TableEntity> queryList(IPage<TableEntity> map, Wrapper<TableEntity> wrapper);
+     IPage<TableEntity> queryList(IPage<TableEntity> page,  TableEntity entity,String tableName);
 
      Map<String, String> queryTable(String tableName);
 

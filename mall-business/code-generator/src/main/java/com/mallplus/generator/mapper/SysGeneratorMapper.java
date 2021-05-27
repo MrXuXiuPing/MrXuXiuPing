@@ -3,6 +3,7 @@ package com.mallplus.generator.mapper;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mallplus.common.model.SysUser;
 import com.mallplus.db.mapper.SuperMapper;
@@ -21,7 +22,8 @@ import java.util.Map;
 @Component
 @Mapper
 public interface SysGeneratorMapper extends BaseMapper<TableEntity> {
-    IPage<TableEntity> queryList(IPage<TableEntity> page, @Param("tableName") Wrapper<TableEntity> tableName);
+    IPage<TableEntity> queryList(IPage<TableEntity> page,  TableEntity entity,@Param("tableName") String tableName);
+//    IPage<TableEntity> queryList(IPage<TableEntity> page, @Param(Constants.WRAPPER) Wrapper<TableEntity> wrapper);
 
     int queryTotal(Map<String, Object> map);
 

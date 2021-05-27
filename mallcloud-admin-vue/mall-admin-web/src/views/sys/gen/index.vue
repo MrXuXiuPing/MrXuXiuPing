@@ -15,7 +15,7 @@
         <div style="margin-top: 15px">
           <el-form :inline="true" :model="listQuery" size="small" label-width="140px">
             <el-form-item label="输入搜索：">
-              <el-input style="width: 203px" v-model="listQuery.keyword" placeholder="会员名称/关键字"></el-input>
+              <el-input style="width: 203px" v-model="listQuery.tableName" placeholder="请输入表名称"></el-input>
             </el-form-item>
           </el-form>
         </div>
@@ -42,6 +42,13 @@
         <el-table-column label="表名称" align="center">
           <template slot-scope="scope">{{scope.row.tableName}}</template>
         </el-table-column>
+		<el-table-column label="创建时间" align="center">
+			<template slot-scope="scope">
+			<i class="el-icon-time"></i>
+			{{scope.row.createTime | formatTime}}
+			</template>
+		  <!-- <template slot-scope="scope">{{scope.row.}}</template> -->
+		</el-table-column>
         <el-table-column label="表描述" width="180" align="center">
           <template slot-scope="scope">{{scope.row.tableComment}}</template>
         </el-table-column>
@@ -84,7 +91,7 @@
         @current-change="handleCurrentChange"
         layout="total, sizes,prev, pager, next,jumper"
         :page-size="listQuery.pageSize"
-        :page-sizes="[5,10,15]"
+        :page-sizes="[5,10,15,50,100]"
         :current-page.sync="listQuery.pageNum"
         :total="total">
       </el-pagination>

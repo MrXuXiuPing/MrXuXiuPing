@@ -86,7 +86,10 @@
           <template slot-scope="scope">{{scope.row.goodsName}}</template>
         </el-table-column>
         <el-table-column label="提交时间" width="180" align="center">
-          <template slot-scope="scope">{{scope.row.createTime | formatCreateTime}}</template>
+          <template slot-scope="scope">        
+			<i class="el-icon-time"></i>
+			{{scope.row.createTime | formatCreateTime}}
+		  </template>
         </el-table-column>
         <el-table-column label="用户账号" align="center">
           <template slot-scope="scope">{{scope.row.memberUsername}}</template>
@@ -111,7 +114,7 @@
         <el-table-column label="订单状态" width="120" align="center">
           <template slot-scope="scope">{{scope.row.status | formatStatus}}</template>
         </el-table-column>
-        <el-table-column label="操作" width="200" align="center">
+        <el-table-column label="操作" width="200" align="center" >
           <template slot-scope="scope">
             <el-button
               size="mini"
@@ -166,7 +169,7 @@
         layout="total, sizes,prev, pager, next,jumper"
         :current-page.sync="listQuery.pageNum"
         :page-size="listQuery.pageSize"
-        :page-sizes="[5,10,15]"
+        :page-sizes="[5,10,15,50,100]"
         :total="total">
       </el-pagination>
     </div>

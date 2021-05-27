@@ -1,5 +1,6 @@
 package com.mallplus.generator.model;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -10,6 +11,7 @@ public class TableEntity {
      * 表的名称
      */
     private String tableName;
+    private Date createTime;
 
     /**
      * 表的备注
@@ -33,6 +35,14 @@ public class TableEntity {
      * 类名(第一个字母小写)，如：sys_user => sysUser
      */
     private String classname;
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
     public String getTableComment() {
         return tableComment;
@@ -96,5 +106,20 @@ public class TableEntity {
 
     public void setClassname(String classname) {
         this.classname = classname;
+    }
+
+    @Override
+    public String toString() {
+        return "TableEntity{" +
+                "tableName='" + tableName + '\'' +
+                ", createTime=" + createTime +
+                ", comments='" + comments + '\'' +
+                ", tableComment='" + tableComment + '\'' +
+                ", engine='" + engine + '\'' +
+                ", pk=" + pk +
+                ", columns=" + columns +
+                ", className='" + className + '\'' +
+                ", classname='" + classname + '\'' +
+                '}';
     }
 }
