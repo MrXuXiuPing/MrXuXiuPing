@@ -9,6 +9,7 @@ import com.mallplus.common.constant.CommonConstant;
 import com.mallplus.common.model.*;
 import com.mallplus.common.utils.CommonResult;
 import com.mallplus.common.utils.ExcelUtil;
+import com.mallplus.common.utils.SecurityUtils;
 import com.mallplus.common.utils.ValidatorUtils;
 import com.mallplus.user.model.SysUserExcel;
 import com.mallplus.user.service.ISysRoleService;
@@ -57,7 +58,6 @@ public class SysUserController {
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     @ResponseBody
     public Object getAdminInfo(@LoginUser(isFull = true) SysUser user) {
-
         Map<String, Object> data = new HashMap<>();
         data.put("username", user.getUsername());
         data.put("roles", new String[]{"TEST"});

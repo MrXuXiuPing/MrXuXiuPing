@@ -55,10 +55,7 @@ public class LoginAppUser extends SysUser implements SocialUserDetails {
 
     @Override
     public boolean isEnabled() {
-        Boolean enabled = getEnabled();
-        System.out.println("=========================================="+enabled);
-        return true;
-//        return getEnabled();
+        return getEnabled();
     }
 
 

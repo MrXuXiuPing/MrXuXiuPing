@@ -6,6 +6,7 @@ import com.mallplus.common.constant.SecurityConstants;
 import com.mallplus.common.feign.UserService;
 import com.mallplus.common.model.SysRole;
 import com.mallplus.common.model.SysUser;
+import com.mallplus.common.utils.SecurityUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -58,11 +59,8 @@ public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
         LoginUser loginUser = methodParameter.getParameterAnnotation(LoginUser.class);
         boolean isFull = loginUser.isFull();
         HttpServletRequest request = nativeWebRequest.getNativeRequest(HttpServletRequest.class);
-        log.info("request:{}",request);
         String username = request.getHeader(SecurityConstants.USER_HEADER);
         String roles = request.getHeader(SecurityConstants.ROLE_HEADER);
-        log.info("===============username:{}",username);
-        log.info("===============roles:{}",roles);
 //        if (StrUtil.isBlank(username)) {
 //            log.warn("resolveArgument error username is empty");
 //            return null;
@@ -70,7 +68,6 @@ public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
         SysUser user;
         if (isFull) {
             user = userService.selectByUsername("admin");
-//            user = userService.selectByUsername("username");
         } else {
             user = new SysUser();
             user.setUsername(username);
