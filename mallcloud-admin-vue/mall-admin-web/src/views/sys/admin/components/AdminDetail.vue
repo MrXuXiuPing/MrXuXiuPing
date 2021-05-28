@@ -40,6 +40,7 @@
   import {isvalidUsername} from '@/utils/validate';
   import {fetchList} from '@/api/sys/role'
   import SingleUpload from '@/components/Upload/singleUpload'
+  // import SingleUpload from '@/components/Upload/singleUpload'
   const defaultAdmin={
     username: '',
     roleIds:'',

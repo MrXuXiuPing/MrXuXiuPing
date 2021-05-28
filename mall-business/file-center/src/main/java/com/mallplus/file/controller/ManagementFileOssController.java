@@ -3,10 +3,7 @@ package com.mallplus.file.controller;
 import com.mallplus.common.utils.CommonResult;
 import com.mallplus.file.utils.OssUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
@@ -28,7 +25,7 @@ import java.util.Map;
 public class ManagementFileOssController {
 
 
-    @RequestMapping("/upload")
+    @PostMapping("/upload")
     @ResponseBody
     public Object uploadFile(MultipartFile file) throws Exception {
         String filename = file.getOriginalFilename();
