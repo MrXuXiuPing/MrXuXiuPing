@@ -1,90 +1,49 @@
-<template> 
+<template> 
 	<!-- :http-request="uploadSectionFile"
  :on-preview="handlePreview"
  :on-remove="handleRemove" -->
-	<!-- <el-upload class="upload-demo" action="#" :show-file-list="false"
-		:on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload" :file-list="fileList" list-type="picture">
+	<el-upload class="upload-demo" action="http://localhost:8081/api-file/aliyun/oss/upload" :show-file-list="false"
+		:on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload"
+		  list-type="picture">
 		<el-button size="small" type="primary">点击上传</el-button>
-		<div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-		<img v-if="tableData.avator" :src="tableData.avator" class="avatar">
-	</el-upload> -->
-
-<el-upload
-	class="upload-demo"
-	accept="image/png,image/jpg,image/jpeg"
-	ref="upload"
-	:file-list="fileLists"
-	multiple
-	action="#"
-	:on-change="handlePreview"
-	:on-remove="handleRemove"
-	list-type="text"
-	:limit="9"
-	:auto-upload="false">
-	<el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-	<el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
-	<div slot="tip" class="el-upload__tip">只能上传jpg/png格式图片，且图片大小不超过2MB</div>
-</el-upload>
+		<div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb
+		<!-- 构建虚拟路径 -->
+		<img v-if="imageUrl" :src="imageUrl" class="el-upload-list__item-thumbnail" >
+		<!-- <i v-else class="el-icon-plus avatar-uploader-icon"></i> -->
+		</div>
+		
+	</el-upload>
 </template>
 <script>
 	export default {
 		data() {
 			return {
-				fileLists: []
+				imageUrl:""
 			};
 		},
 		methods: {
-			submitUpload() {
-				let that = this;
-				let params = new FormData();
-				// 注意此处对文件数组进行了参数循环添加
-				if (that.fileLists.length > 0) {
-					console.log(fileLists);
-					that.fileLists.forEach(function(file) {
-						params.append('questionImages', file.raw);
-					})
-				} else {
-					that.$message.warning("当前没有合适图片可以上传");
+			 //文件上传成功
+			handleAvatarSuccess(res, file) {
+				if(res.code==200){
+					this.$message.success("图片上传成功！")
+					this.imageUrl =res.data.filePath;
+				}else{
+					this.$message.error('图片上传失败!');
 				}
-				that.$axios({
-						url: "http://localhost:8081/api-file/aliyun/oss/upload",
-						method: "post",
-						data: params,
-						headers: {
-							"Content-Type": "multipart/form-data"
-						}
-					})
-					.then(function(res) {
-						console.log(res.data.filePath)
-						// if (res.data.result == "ok") {
-						// 	that.$message.success('上传成功!');
-						// }
-					})
-					.catch(function(err) {
-						that.$message.error('网络请求异常!');
-					});
+				
 			},
-
-			handleRemove(file, fileList) {
-				this.fileLists = fileList;
-			},
-
-			handlePreview(file, fileList) {
-				let that = this;
-				// if (file.raw.type != 'image/jpg' && file.raw.type != 'image/png') {
-				// 	that.$message.error('图片只能是jpg/png格式!');
-				// 	return;
-				// }
-				if (file.raw.size > 1024 * 1024 * 2) {
-					that.$message.error('上传文件大小不能超过 2MB!');
-					return;
+			//限制用户上传的图片格式和大小
+			beforeAvatarUpload(file) {
+				const isLt2M = file.size / 1024 / 1024 < 10;
+				if (!isLt2M) {
+					this.$message.error('上传头像图片大小不能超过 10MB!');
 				}
-				that.fileLists = fileList;
-			},
+				return isLt2M;
+			}
 		}
 	}
 </script>
-<!-- <template> 
+<!-- <template> 
   <div>
     <el-upload
       action="http://yjlive160322.oss-cn-beijing.aliyuncs.com"
@@ -106,7 +65,6 @@
 </template>
 <script>
   import {policy} from '@/api/oss'
-
   export default {
     name: 'singleUpload',
     props: {
@@ -187,8 +145,5 @@
   }
 </script>
 <style>
-
 </style>
-
-
  -->
