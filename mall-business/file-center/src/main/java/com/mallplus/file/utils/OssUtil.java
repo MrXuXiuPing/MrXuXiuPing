@@ -28,10 +28,10 @@ public class OssUtil {
      * EtpConfig->service模块
      * util无法获取
      */
-    private static String endpoint = "oss-cn-beijing.aliyuncs.com";
-    private static String accessKeyId = "LTAI4GHPnhV17JVrfRx77sMy";
-    private static String accessKeySecret = "XSe0eIRsT76OigJKQWCiVSpr3OppxG";
-    private static String bucketName = "fx-file-manage";
+    private static String endpoint = "";
+    private static String accessKeyId = "";
+    private static String accessKeySecret = "";
+    private static String bucketName = "";
 
 
 
