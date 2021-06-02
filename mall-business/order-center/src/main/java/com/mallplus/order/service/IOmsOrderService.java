@@ -50,7 +50,9 @@ public interface IOmsOrderService extends IService<OmsOrder> {
     @Transactional
     int close(List<Long> ids, String note);
 
-
+    /**
+     * 添加购物车
+     */
     Object addCart(CartParam cartParam);
 
 
@@ -68,7 +70,9 @@ public interface IOmsOrderService extends IService<OmsOrder> {
      */
     @Transactional
     CommonResult generateOrder(OrderParam orderParam);
-
+    /**
+     * 订单提交
+     */
     ConfirmOrderResult submitPreview(OrderParam orderParam);
     /**
      * 确认收货

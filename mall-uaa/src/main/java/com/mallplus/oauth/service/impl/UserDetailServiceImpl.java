@@ -13,6 +13,7 @@ import org.springframework.security.authentication.InternalAuthenticationService
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.social.security.SocialUserDetails;
 import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ import java.util.Set;
  */
 @Slf4j
 @Service
-public class UserDetailServiceImpl implements ZltUserDetailsService, SocialUserDetailsService {
+public class UserDetailServiceImpl implements ZltUserDetailsService, SocialUserDetailsService, UserDetailsService {
     @Resource
     private UserService userService;
     @Resource

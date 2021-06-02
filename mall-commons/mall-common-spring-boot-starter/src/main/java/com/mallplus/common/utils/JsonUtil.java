@@ -55,7 +55,20 @@ public class JsonUtil {
             throw new RuntimeException(e);
         }
     }
-
+    /**
+     * 字符串转换为JsonNode对象
+     * @param json json字符串
+     */
+    public static JsonNode parse(String json) {
+        if (org.apache.commons.lang3.StringUtils.isBlank(json)) {
+            return null;
+        }
+        try {
+            return MAPPER.readTree(json);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
     /**
      * 将对象转换成json字符串格式
      *

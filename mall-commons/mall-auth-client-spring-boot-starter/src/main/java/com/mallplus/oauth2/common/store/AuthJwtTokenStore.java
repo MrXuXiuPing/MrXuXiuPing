@@ -1,7 +1,12 @@
 package com.mallplus.oauth2.common.store;
 
+import com.mallplus.common.model.LoginAppUser;
 import org.springframework.cloud.bootstrap.encrypt.KeyProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
@@ -9,6 +14,8 @@ import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFacto
 
 import javax.annotation.Resource;
 import java.security.KeyPair;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * 认证服务器使用 JWT RSA 非对称加密令牌
@@ -55,4 +62,24 @@ public class AuthJwtTokenStore {
             return accessToken;
         };
     }*/
+    @Bean
+    public TokenEnhancer tokenEnhancer()
+    {
+        return new TokenEnhancer()
+        {
+            @Override
+            public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication)
+            {
+                if (accessToken instanceof DefaultOAuth2AccessToken)
+                {
+                    DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) accessToken;
+                    LoginAppUser user = (LoginAppUser) authentication.getUserAuthentication().getPrincipal();
+                    Map<String, Object> additionalInformation = new LinkedHashMap<>();
+                    additionalInformation.put("mall","mall-auth-jwtToken");
+                    token.setAdditionalInformation(additionalInformation);
+                }
+                return accessToken;
+            };
+        };
+    }
 }

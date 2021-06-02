@@ -960,6 +960,7 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
         }
     }
     /**
+     * 订单提交
      * @return
      */
     @Override
@@ -1074,6 +1075,9 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
         return null;
 
     }
+    /**
+     * 根据提交信息生成订单
+     */
     @Override
     public CommonResult generateOrder(OrderParam orderParam) {
         if (ValidatorUtils.empty(orderParam.getTotal())) {

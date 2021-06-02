@@ -43,7 +43,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain chain) throws ServletException, IOException {
         long startTime, endTime;
-        Map<String,String[]> params = new HashMap<String,String[]>(request.getParameterMap());
+        Map<String,String[]> params = new HashMap<>(request.getParameterMap());
 
         StringBuffer sbParams = new StringBuffer();
         sbParams.append("?");
@@ -55,7 +55,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
         if(sbParams.length() > 1) {sbParams = sbParams.delete(sbParams.length() - 1, sbParams.length());}
 
-        String fullUrl = ((HttpServletRequest)request).getRequestURL().toString();
+        String fullUrl = (request).getRequestURL().toString();
 
         String authHeader = request.getHeader(this.tokenHeader);
         if (authHeader != null && authHeader.startsWith(this.tokenHead)) {
@@ -77,13 +77,13 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         startTime = System.currentTimeMillis();
         chain.doFilter(request, response);
         endTime = System.currentTimeMillis();
-        String requestType = ((HttpServletRequest)request).getMethod();
+        String requestType = (request).getMethod();
 if (fullUrl.contains(".css") || fullUrl.contains(".js")||fullUrl.contains(".png")||
         fullUrl.contains(".jpeg")||fullUrl.contains(".jpg")){
 
 }else {
     logger.info(formMapKey(11, fullUrl, requestType,
-            IpAddressUtil.getIpAddr((HttpServletRequest) request), sbParams.toString(), authHeader)
+            IpAddressUtil.getIpAddr(request), sbParams.toString(), authHeader)
             + ",\"cost\":\"" + (endTime - startTime) + "ms\"");
 }
 

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mallplus.common.constant.SecurityConstants;
 import com.mallplus.common.feign.UserService;
+import com.mallplus.common.model.LoginAppUser;
 import com.mallplus.common.model.Result;
 import com.mallplus.common.model.SysRole;
 import com.mallplus.common.model.SysUser;
@@ -142,6 +143,11 @@ public class OAuth2Controller {
     @ApiOperation(value = "当前登陆用户信息")
     @RequestMapping(value = "/oauth/userinfo", method = RequestMethod.GET)
     public Object getCurrentUserDetail(Principal principal) {
+        Authentication authentication1 = SecurityContextHolder.getContext().getAuthentication();
+        Object principal1 = authentication1.getPrincipal();
+        log.info("authentication1======:{}",authentication1);
+        log.info("principal111111111======:{}",principal1);
+        log.info("principal======:{}",principal);
         Map<String, Object> data = new HashMap<>();
         if (principal!=null){
             String username = principal.getName();
@@ -155,7 +161,7 @@ public class OAuth2Controller {
     }
 
     private void writerToken(HttpServletRequest request, HttpServletResponse response, AbstractAuthenticationToken token
-            , String badCredenbtialsMsg,Long userId) throws IOException {
+            , String badCredentialedMsg,Long userId) throws IOException {
         try {
             String clientId = request.getHeader("client_id");
             String clientSecret = request.getHeader("client_secret");
@@ -178,7 +184,7 @@ public class OAuth2Controller {
 
             writerObj(response, oAuth2AccessToken);
         } catch (BadCredentialsException | InternalAuthenticationServiceException e) {
-            exceptionHandler(response, badCredenbtialsMsg);
+            exceptionHandler(response, badCredentialedMsg);
             e.printStackTrace();
         } catch (Exception e) {
             exceptionHandler(response, e);

@@ -19,5 +19,6 @@
         <module>mall-ribbon-spring-boot-starter</module>
         <module>mall-auth-client-spring-boot-starter</module>
         <module>mall-sentinel-spring-boot-starter</module>
+        <module>mall-elasticsearch-spring-boot-starter</module>
     </modules>
 </project>
