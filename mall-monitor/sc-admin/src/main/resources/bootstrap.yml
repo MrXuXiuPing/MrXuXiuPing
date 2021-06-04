@@ -8,23 +8,25 @@ mall:
 spring:
   application:
     name: sc-admin
-#  boot:
-#    #    此处为SpringBootAdmin配置
-#    admin:
+  boot:
+    # 此处为SpringBootAdmin配置
+    admin:
 #      client:
 #        ### 本地搭建的admin-server
 #        url: http://localhost:8011
 #      ui:
 #        title: 服务健康检查 #web界面的title
-#      notify: #邮件提醒
-#        mail: #发给谁
-#          to: kichunwang@foxmail.com
-#          from: 184375760@qq.com #谁发的
-#    #  spring mail邮件配置
-#    mail:
-#      host: smtp.qq.com #smtp主机
-#      username: 184375760@qq.com #发件人账号
-#      password: bogffhsssi  # 发件人密码，如qq邮箱等使用的是授权码
+      notify: #邮件提醒
+        mail: #发给谁
+          to: 2056709942@qq.com
+          from: 2056709942@qq.com #谁发的
+          subject: #{application.name} (#{application.id}) is #{to.status}
+          text: #{application.name} (#{application.id})\nstatus changed from #{from.status} to #{to.status}\n\n#{application.healthUrl}
+    #  spring mail邮件配置
+  mail:
+    host: smtp.qq.com #smtp主机
+    username: 2056709942@qq.com #发件人账号
+    password: tcjpyzlfftzuedei  # 发件人密码，如qq邮箱等使用的是授权码
   security:
     user:
       name: 'admin'

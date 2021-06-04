@@ -143,11 +143,11 @@ public class OAuth2Controller {
     @ApiOperation(value = "当前登陆用户信息")
     @RequestMapping(value = "/oauth/userinfo", method = RequestMethod.GET)
     public Object getCurrentUserDetail(Principal principal) {
-        Authentication authentication1 = SecurityContextHolder.getContext().getAuthentication();
-        Object principal1 = authentication1.getPrincipal();
-        log.info("authentication1======:{}",authentication1);
-        log.info("principal111111111======:{}",principal1);
-        log.info("principal======:{}",principal);
+//        Authentication authentication1 = SecurityContextHolder.getContext().getAuthentication();
+//        Object principal1 = authentication1.getPrincipal();
+//        log.info("authentication1======:{}",authentication1);
+//        log.info("principal111111111======:{}",principal1);
+//        log.info("principal======:{}",principal);
         Map<String, Object> data = new HashMap<>();
         if (principal!=null){
             String username = principal.getName();

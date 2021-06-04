@@ -38,27 +38,27 @@
 		<jackson.version>2.9.8</jackson.version>
 	</properties>
 
-	<profiles>
-		<profile>
-			<id>release</id>
-			<build>
-				<plugins>
-					<!-- Source -->
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-source-plugin</artifactId>
-						<version>3.0.1</version>
-						<executions>
-							<execution>
-								<phase>package</phase>
-								<goals>
-									<goal>jar-no-fork</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
+<!--	<profiles>-->
+<!--		<profile>-->
+<!--			<id>release</id>-->
+<!--			<build>-->
+<!--				<plugins>-->
+<!--					&lt;!&ndash; Source &ndash;&gt;-->
+<!--					<plugin>-->
+<!--						<groupId>org.apache.maven.plugins</groupId>-->
+<!--						<artifactId>maven-source-plugin</artifactId>-->
+<!--						<version>3.0.1</version>-->
+<!--						<executions>-->
+<!--							<execution>-->
+<!--								<phase>package</phase>-->
+<!--								<goals>-->
+<!--									<goal>jar-no-fork</goal>-->
+<!--								</goals>-->
+<!--							</execution>-->
+<!--						</executions>-->
+<!--					</plugin>-->
+<!--				</plugins>-->
+<!--			</build>-->
+<!--		</profile>-->
+<!--	</profiles>-->
 </project>

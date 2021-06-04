@@ -75,7 +75,7 @@ public class AuthJwtTokenStore {
                     DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) accessToken;
                     LoginAppUser user = (LoginAppUser) authentication.getUserAuthentication().getPrincipal();
                     Map<String, Object> additionalInformation = new LinkedHashMap<>();
-                    additionalInformation.put("mall","mall-auth-jwtToken");
+//                    additionalInformation.put("mall-UserInfo",user);
                     token.setAdditionalInformation(additionalInformation);
                 }
                 return accessToken;

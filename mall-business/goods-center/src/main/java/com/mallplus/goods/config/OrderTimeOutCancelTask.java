@@ -35,6 +35,8 @@ public class OrderTimeOutCancelTask {
      * 商品浏览量
      */
     @Scheduled(cron = "0 0/10 * * * ? ")//每1分钟
+//    @Scheduled(cron = "0/5 * * * * ?")
+//    @Scheduled(cron = "*/10 * * * * ?")
     public void SyncGoodsView() {
         logger.info("开始保存点赞数 、浏览数SyncGoodsView");
         try {

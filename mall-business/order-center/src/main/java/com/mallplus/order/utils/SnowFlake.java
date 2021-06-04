@@ -285,10 +285,15 @@ public class SnowFlake {
 
         /** case3: 多线程-测试多个生产者同时生产N个id, 全部id在全局范围内是否会重复?
          *   结论: 验证通过,没有重复. */
-        try {
-            testProductIdByMoreThread(1, 2, 100000);//单机测试此场景,性能损失至少折半!
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+//        try {
+//            testProductIdByMoreThread(1, 2, 100000);//单机测试此场景,性能损失至少折半!
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        SnowFlake snowFlake = new SnowFlake(0, 0);
+        for (int i = 0; i < 100; i++) {
+            long id = snowFlake.nextId();
+            System.out.println(id);
         }
 
     }
