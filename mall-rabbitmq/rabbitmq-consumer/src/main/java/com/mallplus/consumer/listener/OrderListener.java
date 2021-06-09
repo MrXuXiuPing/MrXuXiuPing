@@ -47,6 +47,7 @@ public class OrderListener implements ChannelAwareMessageListener {
             JSONObject obj = JSONObject.parseObject(str);
             //下单，操作数据库
 //            orderService.order(obj.getString("userId"),obj.getString("goodsId"));
+//            int i = 1 / 0;
             //确认消费
             channel.basicAck(tag,false);//false: 手动应答， true:自动应答
         }catch(Exception e){

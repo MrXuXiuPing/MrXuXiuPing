@@ -12,6 +12,10 @@ spring:
         max-concurrency: 20 #最大消费者数量
         prefetch: 5 #消费者每次从队列获取的消息数量。写多了，如果长时间得不到消费，数据就一直得不到处理
         acknowledge-mode: manual #消费接收确认机制-手动确认
+#        retry:
+#          enabled: true #是否支持重试机制
+#          max-attempts: 5 # 最大重试次数
+#          initial-interval: 3000 # 重试时间间隔
     host: 127.0.0.1
     port: 5672
     username: guest

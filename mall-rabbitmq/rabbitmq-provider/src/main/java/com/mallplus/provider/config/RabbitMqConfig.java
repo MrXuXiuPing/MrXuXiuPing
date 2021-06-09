@@ -55,6 +55,7 @@ public class RabbitMqConfig {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         //设置消息发送格式为json
         rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());
+        // 确保消息发送失败后可以重新返回到队列中,注意：yml需要配置 publisher-returns: true
         rabbitTemplate.setMandatory(true);
         //消息发送到exchange回调 需设置：spring.rabbitmq.publisher-confirms=true
         //消息从 producer 到 RabbitMQ broker cluster 成功，则会返回一个 confirmCallback；
