@@ -54,6 +54,6 @@ spring:
       #消息确认配置项
       #确认消息已发送到交换机(Exchange)
     publisher-confirms: true
-#      #确认消息已发送到队列(Queue)
+#      #确认消息已发送到队列(Queue) , 开启发送失败退回（消息有没有找到合适的队列）
     publisher-returns: true
 #

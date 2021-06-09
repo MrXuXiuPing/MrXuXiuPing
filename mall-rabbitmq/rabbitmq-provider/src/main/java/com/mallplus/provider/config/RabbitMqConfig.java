@@ -57,12 +57,13 @@ public class RabbitMqConfig {
         rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());
         rabbitTemplate.setMandatory(true);
         //消息发送到exchange回调 需设置：spring.rabbitmq.publisher-confirms=true
+        //消息从 producer 到 RabbitMQ broker cluster 成功，则会返回一个 confirmCallback；
         rabbitTemplate.setConfirmCallback(new RabbitTemplate.ConfirmCallback() {
             @Override
             public void confirm(CorrelationData correlationData, boolean ack, String cause) {
                 if (ack) {
-                    logger.info("--------------------------消息发送成功--------------------------");
-                    logger.info("相关数据:({}),确认情况:({}),原因:({})", correlationData, ack, cause);
+//                    logger.info("--------------------------消息发送成功--------------------------");
+//                    logger.info("相关数据:({}),确认情况:({}),原因:({})", correlationData, ack, cause);
                 }else{
                     logger.info("--------------------------消息发送失败--------------------------");
                     logger.info("相关数据:({}),确认情况:({}),原因:({})", correlationData, ack, cause);
@@ -70,6 +71,7 @@ public class RabbitMqConfig {
             }
         });
         //消息从exchange发送到queue失败回调  需设置：spring.rabbitmq.publisher-returns=true
+        //消息从 exchange 到 queue 投递失败，则会返回一个 returnCallback
         rabbitTemplate.setReturnCallback(new RabbitTemplate.ReturnCallback() {
             @Override
             public void returnedMessage(Message message, int replyCode, String replyText, String exchange, String routingKey) {

@@ -36,12 +36,14 @@ public class PayListener implements ChannelAwareMessageListener {
             JSONObject json = JSON.parseObject(str);
             String orderId = json.getString("id");
 //            payService.confirmPay(orderId);
-            channel.basicAck(tag, true);
+            channel.basicAck(tag,false);//false: 手动应答， true:自动应答
         }catch(Exception e){
+            //把消费失败的消息重新放回队列中
+            channel.basicNack(tag,false,true);
             logger.info("支付消息消费出错：{}",e.getMessage());
             logger.info("出错的tag:{}",tag);
-            // TODO  确认消费
-            channel.basicReject(tag,false);
+            // TODO  确认消费 单个消息
+//            channel.basicReject(tag,false);
         }
     }
 }

@@ -3,6 +3,7 @@ package com.mallplus.consumer.listener;
 import com.alibaba.fastjson.JSONObject;
 //import com.mallplus.consumer.service.OrderService;
 import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.ConfirmListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 
 //import org.springframework.amqp.rabbit.listener.api.ChannelAwareMessageListener;
@@ -41,16 +43,18 @@ public class OrderListener implements ChannelAwareMessageListener {
         long tag = message.getMessageProperties().getDeliveryTag();
         try{
             String str = new String(message.getBody(),"utf-8");
-            logger.info("接收到的消息：{}",str);
+//            logger.info("接收到的消息：{}",str);
             JSONObject obj = JSONObject.parseObject(str);
             //下单，操作数据库
 //            orderService.order(obj.getString("userId"),obj.getString("goodsId"));
             //确认消费
-            channel.basicAck(tag,true);
+            channel.basicAck(tag,false);//false: 手动应答， true:自动应答
         }catch(Exception e){
+            //把消费失败的消息重新放回队列中
+            channel.basicNack(tag,false,true);
             logger.error("消息监听确认机制发生异常：",e.fillInStackTrace());
             // TODO  确认消费
-            channel.basicReject(tag,false);
+//            channel.basicReject(tag,false);
         }
 
     }

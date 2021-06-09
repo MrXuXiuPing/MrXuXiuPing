@@ -36,7 +36,8 @@ public class CanalClient {
                 11111), "example", "", "");
         try {
             connector.connect();
-            connector.subscribe(".*\\..*");
+//            connector.subscribe(".*\\..*");
+            connector.subscribe("mallCloud\\..*");
             connector.rollback();
             try {
                 while (true) {
@@ -75,7 +76,7 @@ public class CanalClient {
             String sql = SQL_QUEUE.poll();
             System.out.println("[sql]----> " + sql);
 
-            this.execute(sql.toString());
+            this.execute(sql);
         }
     }
 

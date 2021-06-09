@@ -71,8 +71,8 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
     private OmsOrderMapper orderMapper;
     @Resource
     private RedisUtil redisUtil;
-    @Resource
-    private IOmsOrderOperateHistoryService orderOperateHistoryDao;
+//    @Resource
+//    private IOmsOrderOperateHistoryService orderOperateHistoryDao;
     @Resource
     private OmsOrderOperateHistoryMapper orderOperateHistoryMapper;
     @Resource
@@ -113,7 +113,7 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
                     history.setNote("完成发货");
                     return history;
                 }).collect(Collectors.toList());
-        orderOperateHistoryDao.saveBatch(operateHistoryList);
+        orderOperateHistoryService.saveBatch(operateHistoryList);
         return count;
     }
 
@@ -131,7 +131,7 @@ public class OmsOrderServiceImpl extends ServiceImpl<OmsOrderMapper, OmsOrder> i
             history.setNote("订单关闭:" + note);
             return history;
         }).collect(Collectors.toList());
-        orderOperateHistoryDao.saveBatch(historyList);
+        orderOperateHistoryService.saveBatch(historyList);
         return count;
     }
     @Override

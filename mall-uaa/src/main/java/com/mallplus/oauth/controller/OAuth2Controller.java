@@ -93,11 +93,10 @@ public class OAuth2Controller {
         if ( param.getPassword() == null || "".equals( param.getPassword())) {
             throw new UnapprovedClientAuthenticationException("密码为空");
         }
-
-
-       if (true){
-           UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(param.getUsername(),  param.getPassword());
-           writerToken(request, response, token, "用户名或密码错误",1L);
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(param.getUsername(),  param.getPassword());
+        LoginAppUser loginAppUser = userService.findByUsername(param.getUsername());
+        if (loginAppUser!=null){
+           writerToken(request, response, token, "用户名或密码错误!",loginAppUser.getId());
        }else {
            exceptionHandler(response, "用户名或密码错误");
        }

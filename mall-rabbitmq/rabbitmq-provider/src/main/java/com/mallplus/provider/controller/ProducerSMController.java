@@ -2,6 +2,7 @@ package com.mallplus.provider.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,4 +14,5 @@ public class ProducerSMController {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
+
 }

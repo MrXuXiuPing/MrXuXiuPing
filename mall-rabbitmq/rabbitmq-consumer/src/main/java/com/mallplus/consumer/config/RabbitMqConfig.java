@@ -59,6 +59,7 @@ public class RabbitMqConfig {
         factoryConfigurer.configure(factory,connectionFactory);
         factory.setMessageConverter(new Jackson2JsonMessageConverter());
         factory.setConnectionFactory(connectionFactory);
+        factory.setAcknowledgeMode(AcknowledgeMode.MANUAL);
         //TODO：并发配置
         factory.setConcurrentConsumers(env.getProperty("spring.rabbitmq.listener.concurrency",int.class));
         factory.setMaxConcurrentConsumers(env.getProperty("spring.rabbitmq.listener.max-concurrency",int.class));
@@ -75,6 +76,7 @@ public class RabbitMqConfig {
         factoryConfigurer.configure(factory,connectionFactory);
         factory.setMessageConverter(new Jackson2JsonMessageConverter());
         factory.setConnectionFactory(connectionFactory);
+        factory.setAcknowledgeMode(AcknowledgeMode.MANUAL);
         //TODO：并发配置
         factory.setConcurrentConsumers(env.getProperty("spring.rabbitmq.listener.concurrency",int.class));
         factory.setMaxConcurrentConsumers(env.getProperty("spring.rabbitmq.listener.max-concurrency",int.class));

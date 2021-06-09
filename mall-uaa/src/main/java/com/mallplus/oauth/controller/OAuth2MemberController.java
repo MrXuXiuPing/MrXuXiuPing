@@ -141,7 +141,7 @@ public class OAuth2MemberController {
         MobileMemberAuthenticationToken token = new MobileMemberAuthenticationToken(umsAdminLoginParam.getUsername(), umsAdminLoginParam.getPassword());
         UmsMember user = memberFeignClient.findByUsername(umsAdminLoginParam.getUsername());
        if (user!=null){
-           writerToken(request, response, token, "用户认证成功！",user.getId());
+           writerToken(request, response, token, "用户名或密码错误！",user.getId());
        }else {
            exceptionHandler(response, "用户名或密码错误");
        }
