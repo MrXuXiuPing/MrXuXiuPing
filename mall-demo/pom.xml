@@ -15,5 +15,6 @@
         <module>txlcn-demo</module>
         <!-- sharding-jdbc分库分表demo -->
         <module>sharding-jdbc-demo</module>
+        <module>mall-websocket</module>
     </modules>
 </project>

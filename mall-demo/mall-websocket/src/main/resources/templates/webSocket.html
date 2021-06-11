@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket</title>
+</head>
+<body>
+</body>
+<script>
+var websocket = null;
+
+//浏览器是否支持
+if ('WebSocket' in window) {
+    // 上面我们给webSocket定位的路径"+random
+    var random= Math.round(Math.random()*100);
+    var socketUrl="ws://172.31.251.39:22599/api/webSocket/1";
+    websocket = new WebSocket(socketUrl);
+} else {
+    alert('该浏览器不支持websocket!');
+}
+//建立连接
+websocket.onopen = function (event) {
+    console.log('WebSocket建立连接');
+}
+//关闭连接
+websocket.onclose = function (event) {
+    console.log('WebSocket连接关闭');
+}
+//消息来的时候的事件
+websocket.onmessage = function (event) {
+    // 这里event.data就是我们从后台推送过来的消息
+    console.log(event.data);
+}
+
+//发生错误时
+websocket.onerror = function () {
+    alert('websocket通信发生错误！');
+}
+//窗口关闭时，Websocket关闭
+window.onbeforeunload = function () {
+    websocket.close();
+}
+
+</script>
+</html>
