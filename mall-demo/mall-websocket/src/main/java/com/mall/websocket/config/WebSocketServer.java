@@ -20,7 +20,7 @@ public class WebSocketServer {
 //    private static Integer onLineCount = 0;
     private static AtomicInteger onlineNum = new AtomicInteger();
     //静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
-    //concurrent包的线程安全Set，用来存放每个客户端对应的MyWebSocket对象。
+    //concurrent包的线程安全Set，用来存放每个客户端对应的WebSocketServer对象。
     private static ConcurrentHashMap<String, WebSocketServer> webSocketMap = new ConcurrentHashMap<>();
     //与某个客户端的连接会话，需要通过它来给客户端发送数据
     private Session session;
@@ -54,13 +54,15 @@ public class WebSocketServer {
             e.printStackTrace();
         }
     }
-    public  void sendToMessageById(String name,String message) {
+
+    public void sendToMessageById(String name, String message) {
         if (webSocketMap.get(name) != null) {
             webSocketMap.get(name).sendMessage(message);
         } else {
             System.out.println("webSocket中没有此key，不推送消息");
         }
     }
+
     //关闭连接时调用
     @OnClose
     public void onClose(@PathParam("name") String name) {
@@ -73,9 +75,11 @@ public class WebSocketServer {
     public void onError(Session session, Throwable throwable) {
         throwable.printStackTrace();
     }
+
     public Session getSession() {
         return session;
     }
+
     // 获取当前所有连接的客户端对象
     public ConcurrentHashMap<String, WebSocketServer> getWebSocketMap() {
         return webSocketMap;

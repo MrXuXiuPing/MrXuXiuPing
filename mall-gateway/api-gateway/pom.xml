@@ -11,6 +11,12 @@
     <description>gateway网关</description>
     <artifactId>api-gateway</artifactId>
     <dependencies>
+        <!-- 添加JWT计算Token -->
+        <dependency>
+            <groupId>com.nimbusds</groupId>
+            <artifactId>nimbus-jose-jwt</artifactId>
+            <version>6.0</version>
+        </dependency>
         <dependency>
             <groupId>com.mall</groupId>
             <artifactId>mall-common-spring-boot-starter</artifactId>

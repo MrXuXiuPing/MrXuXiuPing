@@ -20,15 +20,15 @@ public class TimeTask {
     private WebSocketServer webSocketServer;
     // 5秒推送一次
 //    @Scheduled(cron = "*/5 * * * * ?")
-    @Scheduled(cron = "0/3 * * * * ?")
+    @Scheduled(cron = "0/30 * * * * ?")
     public void sendMsg(){
         ConcurrentHashMap<String, WebSocketServer> socket = webSocketServer.getWebSocketMap();
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("CPU", IdUtil.randomUUID());
-        jsonObject.put("内存",IdUtil.randomUUID());
-        jsonObject.put("磁盘",IdUtil.randomUUID());
         if(CollectionUtil.isNotEmpty(socket)){
 //            webSocketServer.sendMessage("hello!!!!!");
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("CPU", IdUtil.randomUUID());
+            jsonObject.put("内存",IdUtil.randomUUID());
+            jsonObject.put("磁盘",IdUtil.randomUUID());
             webSocketServer.sendToMessageById("1",jsonObject.toString());
         }
     }
