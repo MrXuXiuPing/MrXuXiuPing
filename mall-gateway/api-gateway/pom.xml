@@ -11,6 +11,12 @@
     <description>gateway网关</description>
     <artifactId>api-gateway</artifactId>
     <dependencies>
+        <!--    验证码生成    -->
+        <dependency>
+            <groupId>com.github.whvcse</groupId>
+            <artifactId>easy-captcha</artifactId>
+            <version>1.6.2</version>
+        </dependency>
         <!-- 添加JWT计算Token -->
         <dependency>
             <groupId>com.nimbusds</groupId>
