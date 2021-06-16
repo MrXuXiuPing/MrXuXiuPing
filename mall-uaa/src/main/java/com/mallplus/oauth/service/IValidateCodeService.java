@@ -25,6 +25,12 @@ public interface IValidateCodeService {
     String getCode(String client_id);
 
     /**
+     * 获取验证码
+     * @param
+     */
+    Object getImageBase64Code();
+
+    /**
      * 删除验证码
      * @param client_id 前端唯一标识/手机号
      */

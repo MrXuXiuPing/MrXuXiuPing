@@ -64,4 +64,9 @@ public class ValidateCodeController {
         Assert.notNull(mobile, "手机号不能为空");
         return validateCodeService.sendSmsCode(mobile);
     }
+    @ResponseBody
+    @GetMapping(SecurityConstants.DEFAULT_IMAGE_CODE_URL_PREFIX)
+    public Object getImageBase64Code(){
+        return validateCodeService.getImageBase64Code();
+    }
 }

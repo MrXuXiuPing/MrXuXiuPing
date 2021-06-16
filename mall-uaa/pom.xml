@@ -9,6 +9,12 @@
 	<artifactId>mall-uaa</artifactId>
 	<description>认证中心</description>
 	<dependencies>
+		<!--    验证码生成    -->
+		<dependency>
+			<groupId>com.github.whvcse</groupId>
+			<artifactId>easy-captcha</artifactId>
+			<version>1.6.2</version>
+		</dependency>
 		<dependency>
 			<groupId>com.mall</groupId>
 			<artifactId>mall-config</artifactId>

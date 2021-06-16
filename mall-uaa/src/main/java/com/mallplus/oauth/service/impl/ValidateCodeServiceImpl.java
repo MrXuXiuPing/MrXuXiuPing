@@ -1,13 +1,16 @@
 package com.mallplus.oauth.service.impl;
 
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.mallplus.common.feign.UserService;
 import com.mallplus.common.redis.template.RedisRepository;
 import com.mallplus.common.constant.SecurityConstants;
 import com.mallplus.common.model.Result;
 import com.mallplus.common.model.SysUser;
+import com.mallplus.common.redis.template.RedisUtil;
 import com.mallplus.oauth.exception.ValidateCodeException;
 import com.mallplus.oauth.service.IValidateCodeService;
+import com.wf.captcha.ArithmeticCaptcha;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,9 @@ import org.springframework.web.bind.ServletRequestUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author mall
@@ -27,7 +33,8 @@ import javax.servlet.http.HttpServletRequest;
 public class ValidateCodeServiceImpl implements IValidateCodeService {
     @Autowired
     private RedisRepository redisRepository;
-
+    @Resource
+    private RedisUtil redisUtil;
     @Resource
     private UserService userService;
 
@@ -80,6 +87,32 @@ public class ValidateCodeServiceImpl implements IValidateCodeService {
     @Override
     public String getCode(String client_id) {
         return (String)redisRepository.get(buildKey(client_id));
+    }
+
+    @Override
+    public Object getImageBase64Code() {
+        // 算术类型 https://gitee.com/whvse/EasyCaptcha
+        ArithmeticCaptcha captcha = new ArithmeticCaptcha(111, 36);
+        // 几位数运算，默认是两位
+        captcha.setLen(2);
+        // 获取运算的结果
+        String result = "";
+        try {
+            result = new Double(Double.parseDouble(captcha.text())).intValue() + "";
+        } catch (Exception e) {
+            result = captcha.text();
+        }
+        String uuid = "mall-code" + IdUtil.simpleUUID();
+        // 保存
+        redisUtil.set(uuid, result, 2, TimeUnit.MINUTES);
+        // 验证码信息
+        String finalResult = result;
+        Map<String, Object> imgResult = new HashMap<String, Object>(2) {{
+            put("img", captcha.toBase64());
+            put("uuid", uuid);
+//            put("code", finalResult);
+        }};
+       return imgResult;
     }
 
     /**

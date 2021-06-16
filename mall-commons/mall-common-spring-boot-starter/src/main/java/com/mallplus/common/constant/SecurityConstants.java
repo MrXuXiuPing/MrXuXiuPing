@@ -51,6 +51,10 @@ public interface SecurityConstants {
      * 默认的处理验证码的url前缀
      */
     String DEFAULT_VALIDATE_CODE_URL_PREFIX = "/validata/code";
+    /**
+     * 默认的处理验证码
+     */
+    String DEFAULT_IMAGE_CODE_URL_PREFIX = "/validata/imgCode";
 
     /**
      * 手机号的处理验证码的url前缀

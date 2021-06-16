@@ -12,20 +12,38 @@ const service = axios.create({
 })
 
 // request拦截器
-service.interceptors.request.use(
-  config => {
-    if (getToken()) {
-      config.headers['Authorization'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
-    }
-    config.headers['Content-Type'] = 'application/json'
-    return config
-  },
-  error => {
-    // Do something with request error
-    console.log(error) // for debug
-    Promise.reject(error)
+service.interceptors.request.use(config => {
+  if (store.getters.token) {
+      let test = config.data;
+      if(test){
+          config.data['access_token']= getToken()
+      }
+
+    config.headers['Authorization'] = 'bearer ' +getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
+  }else{
+      config.headers['client_id'] = 'app';
+      config.headers['client_secret'] = 'app';
   }
-)
+  return config
+}, error => {
+  // Do something with request error
+  console.log(error) // for debug
+  Promise.reject(error)
+})
+// service.interceptors.request.use(config => {
+//     if (getToken()) {
+//       config.headers['Authorization'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
+//     }
+//     config.headers['Content-Type'] = 'application/json'
+//     return config
+//   },
+//   error => {
+//     // Do something with request error
+//     console.log(error) // for debug
+//     Promise.reject(error)
+//   }
+// )
+
 
 // response 拦截器
 service.interceptors.response.use(

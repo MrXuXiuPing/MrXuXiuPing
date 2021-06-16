@@ -29,6 +29,10 @@
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>com.mall</groupId>-->
+<!--            <artifactId>mall-redis-spring-boot-starter</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>com.mall</groupId>-->
 <!--            <artifactId>mall-auth-client-spring-boot-starter</artifactId>-->
 <!--            <exclusions>-->
 <!--                <exclusion>-->
