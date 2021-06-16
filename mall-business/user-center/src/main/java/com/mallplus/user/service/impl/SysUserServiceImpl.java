@@ -15,6 +15,7 @@ import com.mallplus.user.model.SysUserExcel;
 import com.mallplus.user.service.ISysUserRoleService;
 import com.mallplus.user.service.ISysUserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author 作者 owen E-mail: 624191343@qq.com
@@ -69,10 +71,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public LoginAppUser getLoginAppUser(SysUser sysUser) {
-        LoginAppUser loginAppUser = new LoginAppUser();
-        BeanUtils.copyProperties(sysUser, loginAppUser);
-        return loginAppUser;
-        /*if (sysUser != null) {
+//        LoginAppUser loginAppUser = new LoginAppUser();
+//        BeanUtils.copyProperties(sysUser, loginAppUser);
+//        return loginAppUser;
+        if (sysUser != null) {
             LoginAppUser loginAppUser = new LoginAppUser();
             BeanUtils.copyProperties(sysUser, loginAppUser);
 
@@ -82,17 +84,16 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
             if (!CollectionUtils.isEmpty(sysRoles)) {
                 Set<Long> roleIds = sysRoles.parallelStream().map(SuperEntity::getId).collect(Collectors.toSet());
-                List<SysPermission> menus = roleMenuMapper.findMenusByRoleIds(roleIds, CommonConstant.PERMISSION);
+                List<SysPermission> menus =null/* roleMenuMapper.findMenusByRoleIds(roleIds, CommonConstant.PERMISSION)*/;
                 if (!CollectionUtils.isEmpty(menus)) {
-                    Set<String> permissions = menus.parallelStream().map(p -> p.getPathMethod()+":"+p.getPath())
-                            .collect(Collectors.toSet());
+                    Set<String> permissions = null/*menus.parallelStream().map(p -> p.getPathMethod()+":"+p.getPath()).collect(Collectors.toSet())*/;
                     // 设置权限集合
                     loginAppUser.setPermissions(permissions);
                 }
             }
             return loginAppUser;
         }
-        return null;*/
+        return null;
     }
 
 
