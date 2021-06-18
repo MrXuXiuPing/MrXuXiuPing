@@ -33,5 +33,14 @@
         m.sort
 
     </select>
+    <select id="selectListByRoles" resultType="com.mallplus.user.vo.MenuDto">
+        SELECT
+        DISTINCT
+        m.*
+        FROM
+        sys_menu m
+        LEFT OUTER JOIN sys_role_menu t ON m.id = t.menu_id
+        LEFT OUTER JOIN sys_role r ON r.id = t.role_id
+    </select>
 
 </mapper>

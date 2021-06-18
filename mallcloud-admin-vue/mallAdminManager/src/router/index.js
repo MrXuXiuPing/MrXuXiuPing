@@ -26,7 +26,9 @@ router.beforeEach((to, from, next) => {
         store.dispatch('GetInfo').then(res => { // 拉取user_info
           // 动态路由，拉取菜单
           loadMenus(next, to)
+          console.log("loadMenus="+next+"=========="+to)
         }).catch((err) => {
+          console.log("loadMenuscatch="+next+"=========="+to)
           console.log(err)
           store.dispatch('LogOut').then(() => {
             location.reload() // 为了重新实例化vue-router对象 避免bug
@@ -43,12 +45,13 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     /* has no token*/
-    if (whiteList.indexOf(to.path) !== -1) { // 在免登录白名单，直接进入
-      next()
-    } else {
-      next(`/login?redirect=${to.path}`) // 否则全部重定向到登录页
-      NProgress.done()
-    }
+    next()
+    // if (whiteList.indexOf(to.path) !== -1) { // 在免登录白名单，直接进入
+    //   next()
+    // } else {
+    //   next(`/login?redirect=${to.path}`) // 否则全部重定向到登录页
+    //   NProgress.done()
+    // }
   }
 })
 

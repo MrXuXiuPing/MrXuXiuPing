@@ -31,9 +31,10 @@ const user = {
       const rememberMe = userInfo.rememberMe
       return new Promise((resolve, reject) => {
         login(userInfo.username, userInfo.password, userInfo.code, userInfo.uuid).then(res => {
-          setToken(res.token, rememberMe)
-          commit('SET_TOKEN', res.token)
-          setUserInfo(res.user, commit)
+          // setToken(res.access_token, rememberMe)
+          setToken(res.access_token)
+          commit('SET_TOKEN', res.access_token)
+          // setUserInfo(res.user, commit)
           // 第一次加载菜单时用到， 具体见 src 目录下的 permission.js
           commit('SET_LOAD_MENUS', true)
           resolve()
@@ -44,28 +45,29 @@ const user = {
     },
 
     // 获取用户信息
-    GetInfo({ commit }) {
+    GetInfo({ commit ,state}) {
       return new Promise((resolve, reject) => {
         getInfo().then(res => {
-          setUserInfo(res, commit)
+          const data = res.data;
+          // setUserInfo(res, commit)
           resolve(res)
         }).catch(error => {
           reject(error)
         })
       })
     },
-    // 登出
-    LogOut({ commit }) {
-      return new Promise((resolve, reject) => {
-        logout().then(res => {
-          logOut(commit)
-          resolve()
-        }).catch(error => {
-          logOut(commit)
-          reject(error)
-        })
-      })
-    },
+    // // 登出
+    // LogOut({ commit, state }) {
+    //   return new Promise((resolve, reject) => {
+    //     logout(state.token).then(res => {
+    //       logOut(commit)
+    //       resolve()
+    //     }).catch(error => {
+    //       logOut(commit)
+    //       reject(error)
+    //     })
+    //   })
+    // },
 
     updateLoadMenus({ commit }) {
       return new Promise((resolve, reject) => {
@@ -83,6 +85,7 @@ export const logOut = (commit) => {
 
 export const setUserInfo = (res, commit) => {
   // 如果没有任何权限，则赋予一个默认的权限，避免请求死循环
+  console.log("res.roles.length="+res.roles.length)
   if (res.roles.length === 0) {
     commit('SET_ROLES', ['ROLE_SYSTEM_DEFAULT'])
   } else {

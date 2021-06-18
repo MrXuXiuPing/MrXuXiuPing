@@ -124,13 +124,14 @@ export default {
             Cookies.remove('password')
             Cookies.remove('rememberMe')
           }
+          this.loading = false
           this.$store.dispatch('Login', user).then(() => {
-            this.loading = false
-            this.$router.push({ path: this.redirect || '/' })
+              this.loading = false
+              this.$router.push({ path: this.redirect || '/' })
           }).catch(() => {
-            this.loading = false
-            this.getCode()
-          })
+               this.loading = false
+               this.getCode()
+           })
         } else {
           console.log('error submit!!')
           return false

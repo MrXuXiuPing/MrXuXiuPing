@@ -9,7 +9,8 @@ export function getMenusTree() {
 
 export function buildMenus() {
   return request({
-    url: 'api/menus/build',
+    // url: 'api/menus/build',
+    url: '/api-user/sys/SysPermission/build',
     method: 'get'
   })
 }

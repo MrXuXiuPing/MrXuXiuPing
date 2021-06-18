@@ -15,4 +15,6 @@ public interface ISysRoleService extends IService<SysRole> {
 	boolean saves(SysRole entity);
 
 	boolean updates(SysRole entity);
+
+	List<SysRole> findRolesByUserId(Long id);
 }

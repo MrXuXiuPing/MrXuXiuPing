@@ -47,6 +47,10 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     private DistributedLock lock;
 
     @Override
+    public List<SysRole> findRolesByUserId(Long id) {
+        return roleMapper.findRolesByUserId(id);
+    }
+    @Override
     public List<SysRoleMenu> getRolePermission(Long roleId) {
         return roleMenuMapper.selectList(new QueryWrapper<SysRoleMenu>().eq("role_id",roleId));
     }

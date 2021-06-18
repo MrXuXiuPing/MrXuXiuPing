@@ -1,5 +1,7 @@
 package com.mallplus.oauth.controller;
 
+import cn.hutool.crypto.asymmetric.KeyType;
+import cn.hutool.crypto.asymmetric.RSA;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,6 +24,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.*;
@@ -81,6 +84,9 @@ public class OAuth2Controller {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Value("${rsa.private_key}")
+    private String privateKey;
+
 
 
     @ApiOperation(value = "用户名密码获取token")
@@ -93,9 +99,13 @@ public class OAuth2Controller {
         if ( param.getPassword() == null || "".equals( param.getPassword())) {
             throw new UnapprovedClientAuthenticationException("密码为空");
         }
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(param.getUsername(),  param.getPassword());
+        // 密码解密
+        RSA rsa = new RSA(privateKey, null);
+        String password = new String(rsa.decrypt(param.getPassword(), KeyType.PrivateKey));
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(param.getUsername(),  password);
         LoginAppUser loginAppUser = userService.findByUsername(param.getUsername());
         if (loginAppUser!=null){
+//        if (true){
            writerToken(request, response, token, "用户名或密码错误!",loginAppUser.getId());
        }else {
            exceptionHandler(response, "用户名或密码错误");

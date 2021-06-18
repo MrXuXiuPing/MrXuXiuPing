@@ -71,29 +71,29 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public LoginAppUser getLoginAppUser(SysUser sysUser) {
-//        LoginAppUser loginAppUser = new LoginAppUser();
-//        BeanUtils.copyProperties(sysUser, loginAppUser);
-//        return loginAppUser;
-        if (sysUser != null) {
-            LoginAppUser loginAppUser = new LoginAppUser();
-            BeanUtils.copyProperties(sysUser, loginAppUser);
-
-            List<SysRole> sysRoles = roleMapper.findRolesByUserId(sysUser.getId());
-            // 设置角色
-            loginAppUser.setRoles(sysRoles);
-
-            if (!CollectionUtils.isEmpty(sysRoles)) {
-                Set<Long> roleIds = sysRoles.parallelStream().map(SuperEntity::getId).collect(Collectors.toSet());
-                List<SysPermission> menus =null/* roleMenuMapper.findMenusByRoleIds(roleIds, CommonConstant.PERMISSION)*/;
-                if (!CollectionUtils.isEmpty(menus)) {
-                    Set<String> permissions = null/*menus.parallelStream().map(p -> p.getPathMethod()+":"+p.getPath()).collect(Collectors.toSet())*/;
-                    // 设置权限集合
-                    loginAppUser.setPermissions(permissions);
-                }
-            }
-            return loginAppUser;
-        }
-        return null;
+        LoginAppUser loginAppUser = new LoginAppUser();
+        BeanUtils.copyProperties(sysUser, loginAppUser);
+        return loginAppUser;
+//        if (sysUser != null) {
+//            LoginAppUser loginAppUser = new LoginAppUser();
+//            BeanUtils.copyProperties(sysUser, loginAppUser);
+//
+//            List<SysRole> sysRoles = roleMapper.findRolesByUserId(sysUser.getId());
+//            // 设置角色
+//            loginAppUser.setRoles(sysRoles);
+//
+//            if (!CollectionUtils.isEmpty(sysRoles)) {
+//                Set<Long> roleIds = sysRoles.parallelStream().map(SuperEntity::getId).collect(Collectors.toSet());
+//                List<SysPermission> menus =null/* roleMenuMapper.findMenusByRoleIds(roleIds, CommonConstant.PERMISSION)*/;
+//                if (!CollectionUtils.isEmpty(menus)) {
+//                    Set<String> permissions = null/*menus.parallelStream().map(p -> p.getPathMethod()+":"+p.getPath()).collect(Collectors.toSet())*/;
+//                    // 设置权限集合
+//                    loginAppUser.setPermissions(permissions);
+//                }
+//            }
+//            return loginAppUser;
+//        }
+//        return null;
     }
 
 

@@ -7,16 +7,16 @@ export function login(username, password, code, uuid) {
     method: 'post',
     data: {
       username,
-      password,
-      code,
-      uuid
+      password
+      // code,
+      // uuid
     }
   })
 }
 
 export function getInfo() {
   return request({
-    //url: 'auth/info',
+    // url: 'auth/info',
     url: '/api-uaa/oauth/userinfo',
     method: 'get'
   })
@@ -33,7 +33,7 @@ export function getCodeImg() {
 export function logout() {
   return request({
     url: '/api-uaa/oauth/remove/token',
-    //url: 'auth/logout',
-    method: 'delete'
+    // url: 'auth/logout',
+    method: 'get'
   })
 }
